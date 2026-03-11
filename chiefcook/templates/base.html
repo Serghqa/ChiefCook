@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Мои Вкусные Рецепты{% endblock %}</title>
+</head>
+<body>
+
+<header>
+    <nav>Простые рецепты на каждый день</nav>
+</header>
+
+<main>
+    {% block content %}
+    <!-- Сюда будет подставляться содержимое страниц -->
+    {% endblock %}
+</main>
+
+<footer>
+    <p>&copy; {% now "Y" %} Мои Рецепты. Сделано с любовью.</p>
+</footer>
+
+</body>
+</html>

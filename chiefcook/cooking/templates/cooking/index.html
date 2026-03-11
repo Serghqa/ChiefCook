@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>
+    <a href="{% url 'index' %}">🍳 Кулинарные рецепты</a>
+</h1>
+
+<div>
+    {% for category, category_name in categories.items %}
+    <h2>
+        <a href="{% url 'category' category %}">{{category_name}}</a>
+    </h2>
+    {% endfor %}
+
+</div>
+
+{% endblock %}
