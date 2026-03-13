@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}{{title}}{% endblock %}
+{% block title %}{{ title }}{% endblock %}
 
 {% block content %}
 
@@ -8,13 +8,15 @@
     <a href="{% url 'index' %}">На главную</a>
 </h2>
 
-<h3>{{category_name}}</h3>
+<h3>{{ category_name }}</h3>
 
 <ul>
-    {% for category_id, recipe in recipes.items %}
-
-    <li>{{recipe.name}}</li>
-
+    {% for recipe_id, recipe in recipes.items %}
+        <li>
+            <a href="{% url 'recipe' category recipe_id %}">
+                {{ recipe.name }}
+            </a>
+        </li>
     {% endfor %}
 </ul>
 

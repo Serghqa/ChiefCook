@@ -5,18 +5,19 @@ class RecipesManager:
     def __init__(self, recipes_data: dict):
         self.recipes = recipes_data
         self.categories = {
-            'breakfast': 'Завтраки',
-            'lunch': 'Обеды',
-            'dinner': 'Ужины'
+            'first_courses': 'Первые блюда',
+            'second_courses': 'Вторые блюда',
+            'salads': 'Салаты',
+            'desserts': 'Десерты',
         }
 
     def get_all_recipes(self) -> dict:
         return self.recipes
 
-    def get_recipes_by_category(self, category: str) -> dict | None:
+    def get_recipes_by_category(self, category: str) -> dict[int, dict] | None:
         return self.recipes.get(category)
 
-    def get_recipe(self, category, recipe_id) -> dict | None:
+    def get_recipe(self, category: str, recipe_id: int) -> dict | None:
         if category in self.recipes and recipe_id in self.recipes[category]:
             return self.recipes[category][recipe_id]
         return None
