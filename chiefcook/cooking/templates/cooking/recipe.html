@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block title %}{{ recipe.name }}{% endblock %}
 
@@ -21,7 +21,7 @@
 <p>{{ recipe.instructions }}</p>
 
 <h3>
-    <a href="{% url 'category' category %}">Назад</a>
+    <a href="{% url 'category' meal_type.name %}">Назад</a>
 </h3>
 
 {% endblock %}

@@ -1,0 +1,147 @@
+/* Общие настройки страницы */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background-color: #fdfdfd;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Растягиваем тело сайта на всю высоту экрана */
+}
+
+/* Контент */
+main {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 30px 20px;
+    flex: 1; /* Этот блок заберет всё свободное место, выталкивая футер вниз */
+}
+
+/* Шапка */
+.main_header {
+    background-color: #ffffff;
+    border-bottom: 2px solid #f0f0f0;
+    padding: 15px 0;
+}
+
+.header_container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between; /* Расталкиваем лого и меню по краям */
+    align-items: center;            /* Вот это выровняет их по вертикали */
+}
+
+.nav_menu {
+    display: flex;
+    align-items: center; /* На случай, если в меню появятся иконки или кнопки разной высоты */
+    gap: 25px;
+}
+
+.nav_menu a {
+    text-decoration: none;
+    color: #555;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.nav_menu a:hover {
+    color: #ff6b6b; /* Цвет при наведении (аппетитный красный) */
+}
+
+/* Контейнер логотипа (ссылка) */
+.logo {
+    display: flex;
+    align-items: center; /* Центрируем картинку и текст по вертикали */
+    gap: 10px;           /* Отступ между картинкой и текстом */
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* Настройки самого изображения */
+.logo_img {
+    height: 40px;        /* Фиксируем высоту, чтобы шапка не "разлеталась" */
+    width: auto;         /* Пропорции сохранятся автоматически */
+    display: block;
+}
+
+/* Оформление подвала */
+.main_footer {
+    background-color: #2d3436; /* Темный графитовый цвет */
+    color: #dfe6e9;           /* Светло-серый текст */
+    padding: 15px 0;          /* Отступы внутри */
+    margin-top: 0;         /* Отступ от контента */
+    border-top: 2px solid #ff6b6b; /* Красная полоска сверху (в цвет твоих кнопок) */
+}
+
+.footer_container {
+    max-width: 1400px;        /* Такая же ширина, как у шапки */
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between; /* Название слева, копирайт справа */
+    align-items: center;
+}
+
+.footer_logo {
+    font-weight: bold;
+    font-size: 1.0rem;
+    color: #ffffff;
+}
+
+.footer_copy {
+    margin: 0;
+    font-size: 0.8rem;
+    opacity: 0.7;             /* Делаем текст чуть прозрачнее */
+}
+
+/* Стили для главной страницы (index.html) */
+
+h1 a {
+    text-decoration: none;
+    color: #2c3e50;
+    display: block;
+    text-align: center;
+    margin: 2rem 0;
+    font-size: 2.5rem;
+}
+
+/* Контейнер для категорий */
+.categories_container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem;
+}
+
+/* Карточка категории (ваши h2) */
+.category_item {
+    background: #ffffff;
+    border: 2px solid #eee;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    text-align: center;
+    margin: 0; /* Сбрасываем дефолтные отступы h2 */
+}
+
+.category_item:hover {
+    border-color: #ff6b6b;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.category_item a {
+    display: block;
+    padding: 2rem;
+    text-decoration: none;
+    color: #444;
+    font-weight: 600;
+    font-size: 1.4rem;
+}
+
+.category_item a:hover {
+    color: #ff6b6b;
+}
