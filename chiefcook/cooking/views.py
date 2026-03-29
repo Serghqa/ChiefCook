@@ -7,29 +7,36 @@ from . models import Recipe, MealType
 
 def index(request: HttpRequest):
 
-    categories: QuerySet[MealType] = MealType.objects.all().order_by('id')
+    meal_types: QuerySet[MealType] = MealType.objects.all().order_by('id')
     data = {
-        'categories': categories,
+        'meal_types': meal_types,
     }
 
     return render(request, 'cooking/index.html', data)
 
 
-def category(request: HttpRequest, category: str):
-    meal_type = MealType.objects.prefetch_related('recipes').get(name=category)
-    recipes: QuerySet[Recipe] = meal_type.recipes.all()
+def meal_type(request: HttpRequest, meal_type: str):
+    meal_type_obj: MealType = get_object_or_404(
+        MealType.objects.prefetch_related('recipes'),
+        name=meal_type
+    )
+    recipes: QuerySet[Recipe] = meal_type_obj.recipes.all()
     data = {
-        'meal_type': meal_type,
+        'meal_type': meal_type_obj,
         'recipes': recipes,
     }
-    return render(request, 'cooking/category.html', data)
+    return render(request, 'cooking/meal_type.html', data)
 
 
-def recipe(request: HttpRequest, category: str, recipe_id: int):
-    recipe = Recipe.objects.select_related('meal_type').get(id=recipe_id)
-    meal_type = recipe.meal_type
+def recipe(request: HttpRequest, recipe_id: int, slug: str):
+    recipe_obj: Recipe = get_object_or_404(
+        Recipe.objects.select_related('meal_type'),
+        id=recipe_id,
+        slug=slug
+    )
+    meal_type_obj: MealType = recipe_obj.meal_type
     data = {
-        'meal_type': meal_type,
-        'recipe': recipe,
+        'meal_type': meal_type_obj,
+        'recipe': recipe_obj,
     }
     return render(request, 'cooking/recipe.html', data)

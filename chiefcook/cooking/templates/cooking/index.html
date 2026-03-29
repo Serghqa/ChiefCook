@@ -2,15 +2,13 @@
 
 {% block content %}
 
-<h1>
-    <a href="{% url 'index' %}">🍳 Кулинарные рецепты</a>
-</h1>
+<h1>🍳 Кулинарные рецепты</h1>
 
-<div class='categories_container'>
-    {% for category in categories %}
-        <h2 class='category_item'>
-            <a href="{% url 'category' category.name %}">{{ category.get_name_display }}</a>
-        </h2>
+<div class='cards_container'>
+    {% for meal_type in meal_types %}
+        <div class='card'>
+            <a href="{{ meal_type.get_absolute_url }}" class='card_title'>{{ meal_type.get_name_display }}</a>
+        </div>
     {% endfor %}
 </div>
 

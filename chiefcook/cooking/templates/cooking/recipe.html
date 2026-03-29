@@ -4,24 +4,33 @@
 
 {% block content %}
 
-<h2>
-    <a href="{% url 'index' %}">На главную</a>
-</h2>
+<nav class="breadcrumbs">
+    <a href="{% url 'cooking:index' %}">Главная</a> /
+    <a href="{{ meal_type.get_absolute_url }}">{{ meal_type.get_name_display }}</a> /
+    <span>{{ recipe.name }}</span>
+</nav>
 
-<h3>{{ recipe.name }}</h3>
+<article class="recipe_detail">
+    <h2>{{ recipe.name }}</h2>
+    <div class="cuisine_badge">🍳 {{ recipe.cuisine }} кухня</div>
 
-<p>Кухня: {{ recipe.cuisine }}</p>
+    <section class="ingredients_section">
+        <h4>Ингредиенты</h4>
+        <ul class="ingredients_list">
+            {% for ingredient in recipe.ingredients %}
+                <li>{{ ingredient }}</li>
+            {% endfor %}
+        </ul>
+    </section>
 
-<ul>
-    {% for ingredient in recipe.ingredients %}
-        <li>{{ ingredient }}</li>
-    {% endfor %}
-</ul>
+    <section class="instructions_section">
+        <h4>Способ приготовления</h4>
+        {{ recipe.instructions|linebreaks }}
+    </section>
 
-<p>{{ recipe.instructions }}</p>
-
-<h3>
-    <a href="{% url 'category' meal_type.name %}">Назад</a>
-</h3>
+    <a href="{{ meal_type.get_absolute_url }}" class="btn_back">
+        ← Назад к списку {{ meal_type.get_name_display }}
+    </a>
+</article>
 
 {% endblock %}
