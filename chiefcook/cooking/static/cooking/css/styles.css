@@ -1,30 +1,43 @@
-/* Общие настройки страницы */
+/* 1. ПЕРЕМЕННЫЕ */
+:root {
+    --primary-color: #ff6b6b;
+    --accent-color: #e67e22;
+    --bg-page: #f9f7f2;
+    --bg-card: #ffffff;
+    --text-dark: #2c3e50;
+    --text-gray: #7f8c8d;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.12);
+    --transition: all 0.3s ease;
+}
+
+/* 2. БАЗОВЫЕ СТИЛИ (ФИКСИРУЕМ ЭКРАН) */
+html,
+body {
+    height: 100vh;
+    margin: 0;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    background-color: #f9f7f2;
+    background-color: var(--bg-page);
     color: #333;
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Растягиваем тело сайта на всю высоту экрана */
+    /* Шапка -> Мэйн -> Подвал */
+    overflow: hidden;
+    /* Отключаем общий скролл окна */
+    -webkit-font-smoothing: antialiased;
 }
 
-/* Контент */
-main {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 30px 20px;
-    flex: 1 0 auto; /* Позволяем контенту расти, но не сжиматься */
-}
-
-/* Шапка */
+/* 3. ШАПКА */
 .main_header {
-    background-color: #ffffff;
-    /* Тонкая размытая тень вместо скучной линии */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    padding: 10px 0;
-    position: sticky; /* Шапка будет прилипать к верху при скролле */
-    top: 0;
+    flex-shrink: 0;
+    /* Не дает шапке сжиматься */
+    background-color: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-sm);
+    padding: 12px 0;
     z-index: 1000;
 }
 
@@ -33,13 +46,12 @@ main {
     margin: 0 auto;
     padding: 0 20px;
     display: flex;
-    justify-content: space-between; /* Расталкиваем лого и меню по краям */
-    align-items: center;            /* Выравнивание по вертикали */
+    justify-content: space-between;
+    align-items: center;
 }
 
 .nav_menu {
     display: flex;
-    align-items: center;
     gap: 25px;
 }
 
@@ -47,144 +59,167 @@ main {
     text-decoration: none;
     color: #555;
     font-weight: 500;
-    transition: color 0.3s ease, transform 0.3s ease;
+    transition: var(--transition);
 }
 
 .nav_menu a:hover {
-    color: #ff6b6b; /* Цвет при наведении */
+    color: var(--primary-color);
 }
 
-/* Контейнер логотипа (ссылка) */
 .logo {
     display: flex;
-    transition: transform 0.3s ease;
-    align-items: center; /* Центрируем картинку и текст по вертикали */
-    gap: 10px;           /* Отступ между картинкой и текстом */
+    align-items: center;
+    gap: 10px;
     text-decoration: none;
-    color: #333;
+    color: var(--text-dark);
     font-weight: bold;
     font-size: 1.2rem;
 }
 
-.logo:hover {
-    transform: scale(1.02); /* Легкий эффект при наведении */
-}
-
-/* Настройки самого изображения */
 .logo_img {
     height: 40px;
-    width: auto;
-    display: block;
+    width: 40px;
 }
 
-/* Оформление подвала */
-.main_footer {
-    background-color: #2d3436;
-    color: #dfe6e9;
-    padding: 15px 0;
-    border-top: 2px solid #ff6b6b;
-    margin-top: auto;
+/* Эффект при наведении на логотип */
+.logo:hover {
+    color: var(--primary-color);
+    /* Логотип станет коралловым */
+    opacity: 0.8;
+    /* Или чуть прозрачнее */
+    transition: var(--transition);
+    /* Чтобы изменение было плавным */
 }
 
-.footer_container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 20px;
+/* Если хотите, чтобы картинка (🍳) тоже реагировала */
+.logo:hover .logo_img {
+    transform: scale(1.1);
+    /* Слегка увеличится */
+    transition: var(--transition);
 }
 
-.footer_content {
+
+/* 4. LAYOUT (РАЗДЕЛЬНЫЙ СКРОЛЛ) */
+main {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 15px;
+    flex: 1;
+    /* Занимает все пространство между хедером и футером */
+    min-height: 0;
+    /* Критически важно для работы скролла внутри flex */
+    width: 100%;
+    overflow: hidden;
 }
 
-.footer_logo {
-    font-weight: bold;
-    font-size: 1.0rem;
-    color: #ffffff;
+/* Боковая панель */
+.sidebar {
+    width: 200px;
+    flex-shrink: 0;
+    border-right: 1px solid #eee;
+    padding: 30px 20px;
+    overflow-y: auto;
+    /* Свой скролл */
+    background-color: #fff;
 }
 
-.footer_copy {
-    margin: 0;
+/* Контентная область */
+.main_content {
+    flex: 1;
+    padding: 40px;
+    overflow-y: auto;
+    /* Свой скролл прижат к правому краю */
+    background-color: var(--bg-page);
+    min-width: 0;
+}
+
+/* Центровщик внутри контента */
+.main_content>* {
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* 5. СКРОЛЛБАРЫ */
+.sidebar::-webkit-scrollbar,
+.main_content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-thumb,
+.main_content::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+}
+
+/* 6. НАВИГАЦИЯ САЙДБАРА */
+.sidebar h4 {
+    color: var(--text-dark);
+    text-transform: uppercase;
     font-size: 0.8rem;
-    opacity: 0.7;
+    letter-spacing: 1px;
+    margin: 20px 0 10px 0;
+    opacity: 0.6;
 }
 
-h1 {
-    text-align: center;
-    margin: 2rem 0;
-    font-size: 2.5rem;
-    color: #2c3e50;
+.sidebar h4:first-child {
+    margin-top: 0; /* Убираем лишний отступ сверху у первого заголовка */
 }
 
-/* Заголовки третьего уровня (например, названия блюд или разделов) */
-h3 {
-    font-size: 1.5rem;
-    color: #2c3e50;
-    margin: 1.5rem 0 1rem;
-    line-height: 1.3;
-    font-weight: 600;
-}
-
-/* Ссылки внутри h3 (если заголовок кликабельный) */
-h3 a {
-    text-decoration: none;
-    color: inherit; /* Наследует цвет от h3 */
-    transition: color 0.3s ease;
-}
-
-h3 a:hover {
-    color: #ff6b6b; /* Ваш акцентный цвет при наведении */
-}
-
-.breadcrumbs {
-    font-size: 0.9rem;
-    margin-bottom: 20px;
-    color: #888;
-}
-
-.breadcrumbs a {
-    color: #ff6b6b;
-    text-decoration: none;
-}
-
-.breadcrumbs a:hover {
-    text-decoration: underline;
-}
-
-/* Общий контейнер для списков (одна колонка на всю ширину) */
-.cards_container {
+/* Стили для контейнера внутри сайдбара */
+.sidebar_content {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    margin-top: 20px;
+    gap: 5px;
+    /* Расстояние между блоками */
 }
 
-/* Базовый стиль карточки */
-.card {
-    position: relative; /* Для работы растянутой ссылки */
+.sidebar_nav {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.sidebar_nav a {
+    text-decoration: none;
+    color: #444;
+    padding: 8px 8px;
+    border-radius: 2px;
+    transition: var(--transition);
+}
+
+.sidebar_nav a:hover,
+.sidebar_nav a.active {
     background: #fff;
+    color: var(--primary-color);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* 7. КАРТОЧКИ */
+.cards_container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    position: relative;
+    background: var(--bg-card);
     border: 1px solid #eee;
-    border-radius: 12px;
+    border-radius: 14px;
     padding: 25px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    transition: all 0.3s ease;
-    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
 }
 
 .card:hover {
-    box-shadow: 0 5px 15px rgba(0,0,0,0.12);
-    border-color: #e67e22;
-    background-color: #fffaf5;
+    box-shadow: var(--shadow-md);
+    border-color: var(--accent-color);
+    transform: translateY(-3px);
 }
 
-/* Заголовок-ссылка, растянутая на всю карту */
 .card_title {
     display: block;
-    font-size: 1.4rem;
-    color: #2c3e50;
+    font-size: 1.2rem;
+    color: var(--text-dark);
     text-decoration: none;
     font-weight: 600;
     margin-bottom: 8px;
@@ -193,95 +228,107 @@ h3 a:hover {
 .card_title::after {
     content: "";
     position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    z-index: 1;
+    inset: 0;
 }
 
-/* Дополнительный текст (кухня или подпись) */
 .card_subtitle {
-    color: #7f8c8d;
-    font-size: 0.95rem;
+    color: var(--text-gray);
+    font-size: 0.9rem;
 }
 
-/* Контейнер страницы рецепта */
+/* 8. СТРАНИЦА РЕЦЕПТА */
 .recipe_detail {
-    max-width: 900px;
-    margin: 0 auto;
     background: #fff;
     padding: 40px;
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    border-radius: 20px;
+    box-shadow: var(--shadow-sm);
 }
 
-/* Заголовки */
-.recipe_detail h2 {
-    color: #2c3e50;
-    font-size: 2rem;
-    margin-bottom: 10px;
-}
-
-/* Кухня (тег) */
 .cuisine_badge {
     display: inline-block;
-    background: #fdf2e9;
-    color: #e67e22;
-    padding: 6px 15px;
+    background: #fef1e6;
+    color: var(--accent-color);
+    padding: 6px 16px;
     border-radius: 50px;
-    font-weight: 600;
-    font-size: 0.9rem;
-    margin-bottom: 30px;
-}
-
-/* Список ингредиентов */
-.ingredients_section {
-    margin: 30px 0;
-}
-
-.ingredients_section h4 {
-    border-bottom: 2px solid #f0f0f0;
-    padding-bottom: 10px;
-    margin-bottom: 15px;
-}
-
-.ingredients_list {
-    list-style: none;
-    padding: 0;
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-bottom: 25px;
 }
 
 .ingredients_list li {
-    padding: 12px 0;
+    padding: 10px 0;
     border-bottom: 1px dashed #eee;
-    display: flex;
-    align-items: center;
+    list-style: none;
 }
 
 .ingredients_list li::before {
-    content: "•";
-    color: #e67e22;
-    font-weight: bold;
+    content: "🔸";
     margin-right: 10px;
 }
 
-/* Инструкции (способ приготовления) */
 .instructions_section {
-    background: #fafafa;
+    background: #fcfcfc;
     padding: 25px;
-    border-radius: 12px;
+    border-radius: 15px;
+    border-left: 5px solid var(--accent-color);
     line-height: 1.8;
-    color: #444;
-    border-left: 5px solid #e67e22;
 }
 
-/* Кнопка "Назад" */
-.btn_back {
-    display: inline-block;
-    margin-top: 30px;
-    color: #7f8c8d;
-    text-decoration: none;
-    font-weight: 600;
-    transition: color 0.2s;
+/* 9. ПОДВАЛ (КОМПАКТНЫЙ) */
+.main_footer {
+    flex-shrink: 0;
+    /* Не дает футеру сжиматься */
+    background-color: #2d3436;
+    color: #dfe6e9;
+    padding: 12px 0;
+    border-top: 2px solid var(--primary-color);
 }
 
-.btn_back:hover {
-    color: #e67e22;
+.footer_content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer_copy {
+    margin: 0;
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+.footer_logo {
+    font-weight: bold;
+    font-size: 1rem;
+    color: #fff;
+}
+
+/* 10. АДАПТИВНОСТЬ */
+@media (max-width: 900px) {
+    body {
+        overflow: auto;
+        height: auto;
+    }
+
+    /* Возвращаем обычный скролл на мобилках */
+    main {
+        flex-direction: column;
+        overflow: visible;
+        height: auto;
+    }
+
+    .sidebar {
+        width: 100%;
+        border-right: none;
+        height: auto;
+        overflow: visible;
+    }
+
+    .main_content {
+        height: auto;
+        overflow: visible;
+        padding: 20px;
+    }
 }

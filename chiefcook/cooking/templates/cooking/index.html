@@ -1,15 +1,9 @@
-{% extends 'base.html' %}
-
+{% extends "base.html" %}
 {% block content %}
-
-<h1>🍳 Кулинарные рецепты</h1>
-
-<div class='cards_container'>
-    {% for meal_type in meal_types %}
-        <div class='card'>
-            <a href="{{ meal_type.get_absolute_url }}" class='card_title'>{{ meal_type.get_name_display }}</a>
-        </div>
-    {% endfor %}
-</div>
-
-{% endblock %}
+    <h1>Кулинарные рецепты</h1>
+    {% if recipes %}
+        {% include "cooking/includes/recipes.html" %}
+    {% else %}
+        <p>Нет рецептов</p>
+    {% endif %}
+{% endblock content %}

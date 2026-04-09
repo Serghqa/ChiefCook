@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}
+    {{ cuisine.get_name_display }}
+{% endblock title %}
+{% block content %}
+    <nav class="breadcrumbs">
+        <a href="{% url 'cooking:index' %}">Главная</a> / <span>{{ cuisine.get_name_display }}</span>
+    </nav>
+    <h3>Рецепты кухни: {{ cuisine.get_name_display }}</h3>
+    {% if recipes %}
+        {% include "cooking/includes/recipes.html" %}
+    {% else %}
+        <p>Рецептов этой кухни пока нет</p>
+    {% endif %}
+{% endblock content %}

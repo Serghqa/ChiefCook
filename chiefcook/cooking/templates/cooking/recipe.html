@@ -1,36 +1,24 @@
-{% extends 'base.html' %}
-
-{% block title %}{{ recipe.name }}{% endblock %}
-
+{% extends "base.html" %}
+{% block title %}{{ recipe.name }}{% endblock title %}
 {% block content %}
-
-<nav class="breadcrumbs">
-    <a href="{% url 'cooking:index' %}">Главная</a> /
-    <a href="{{ meal_type.get_absolute_url }}">{{ meal_type.get_name_display }}</a> /
-    <span>{{ recipe.name }}</span>
-</nav>
-
-<article class="recipe_detail">
-    <h2>{{ recipe.name }}</h2>
-    <div class="cuisine_badge">🍳 {{ recipe.cuisine }} кухня</div>
-
-    <section class="ingredients_section">
-        <h4>Ингредиенты</h4>
-        <ul class="ingredients_list">
-            {% for ingredient in recipe.ingredients %}
-                <li>{{ ingredient }}</li>
-            {% endfor %}
-        </ul>
-    </section>
-
-    <section class="instructions_section">
-        <h4>Способ приготовления</h4>
-        {{ recipe.instructions|linebreaks }}
-    </section>
-
-    <a href="{{ meal_type.get_absolute_url }}" class="btn_back">
-        ← Назад к списку {{ meal_type.get_name_display }}
-    </a>
-</article>
-
-{% endblock %}
+    <nav class="breadcrumbs">
+        <a href="{% url 'cooking:index' %}">Главная</a> /
+        <span>{{ recipe.name }}</span>
+    </nav>
+    <article class="recipe_detail">
+        <h2>{{ recipe.name }}</h2>
+        <div class="cuisine_badge">{{ recipe.cuisine.get_name_display }} кухня</div>
+        <section class="ingredients_section">
+            <h4>Ингредиенты</h4>
+            <ul class="ingredients_list">
+                {% for ingredient in ingredients %}
+                    <li>{{ ingredient.name }} {{ ingredient.amount|floatformat }} {{ ingredient.get_unit_display }}</li>
+                {% endfor %}
+            </ul>
+        </section>
+        <section class="instructions_section">
+            <h4>Способ приготовления</h4>
+            {{ recipe.instructions|linebreaks }}
+        </section>
+    </article>
+{% endblock content %}

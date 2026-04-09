@@ -2,41 +2,67 @@ from django.http import HttpRequest, Http404
 from django.shortcuts import render, get_object_or_404
 from django.db.models import QuerySet
 
-from . models import Recipe, MealType
+from . models import Recipe, Category, Cuisine, Tag, Ingredient
 
 
 def index(request: HttpRequest):
-
-    meal_types: QuerySet[MealType] = MealType.objects.all().order_by('id')
-    data = {
-        'meal_types': meal_types,
+    recipes: QuerySet[Recipe] = Recipe.objects.select_related("author__user", "category", "cuisine").all()
+    context = {
+        "recipes": recipes,
     }
 
-    return render(request, 'cooking/index.html', data)
+    return render(request, "cooking/index.html", context)
 
 
-def meal_type(request: HttpRequest, meal_type: str):
-    meal_type_obj: MealType = get_object_or_404(
-        MealType.objects.prefetch_related('recipes'),
-        name=meal_type
-    )
-    recipes: QuerySet[Recipe] = meal_type_obj.recipes.all()
-    data = {
-        'meal_type': meal_type_obj,
-        'recipes': recipes,
+def cuisine(request: HttpRequest, slug: str):
+    cuisine: Cuisine = get_object_or_404(Cuisine, slug=slug)
+    recipes: QuerySet[Recipe] = Recipe.objects.select_related(
+        "author__user", "category", "cuisine"
+    ).filter(cuisine=cuisine)
+    context = {
+        "recipes": recipes,
+        "cuisine": cuisine,
     }
-    return render(request, 'cooking/meal_type.html', data)
+
+    return render(request, "cooking/cuisine.html", context)
 
 
-def recipe(request: HttpRequest, recipe_id: int, slug: str):
-    recipe_obj: Recipe = get_object_or_404(
-        Recipe.objects.select_related('meal_type'),
-        id=recipe_id,
+def category(request: HttpRequest, slug: str):
+    category: Category = get_object_or_404(Category, slug=slug)
+    recipes: QuerySet[Recipe] = Recipe.objects.select_related(
+        "author__user", "category", "cuisine"
+    ).filter(category=category)
+    context = {
+        "category": category,
+        "recipes": recipes,
+    }
+
+    return render(request, "cooking/category.html", context)
+
+
+def recipe(request: HttpRequest, slug: str):
+    recipe: Recipe = get_object_or_404(
+        Recipe.objects.select_related("author__user", "category", "cuisine").prefetch_related("ingredients"),
         slug=slug
     )
-    meal_type_obj: MealType = recipe_obj.meal_type
-    data = {
-        'meal_type': meal_type_obj,
-        'recipe': recipe_obj,
+    category: Category = recipe.category
+    ingredients: QuerySet[Ingredient] = recipe.ingredients.all()
+    context = {
+        "recipe": recipe,
+        "category": category,
+        "ingredients": ingredients,
     }
-    return render(request, 'cooking/recipe.html', data)
+
+    return render(request, "cooking/recipe.html", context)
+
+def tag(request: HttpRequest, slug: str):
+    tag: Tag = get_object_or_404(Tag, slug=slug)
+    recipes: QuerySet[Recipe] = Recipe.objects.select_related(
+        "author__user", "category", "cuisine"
+    ).filter(tags=tag)
+    context = {
+        "tag": tag,
+        "recipes": recipes,
+    }
+
+    return render(request, "cooking/tag.html", context)
