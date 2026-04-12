@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% block title %}
-    {{ category.get_name_display }}
+    {{ category.name }}
 {% endblock title %}
 {% block content %}
     <nav class="breadcrumbs">
-        <a href="{% url 'cooking:index' %}">Главная</a> / <span>{{ category.get_name_display }}</span>
+        <a href="{% url 'cooking:index' %}">Главная</a> / <span>{{ category.name }}</span>
     </nav>
-    <h3>Рецепты в категории: {{ category.get_name_display }}</h3>
+    <h3>Рецепты в категории: {{ category.name }}</h3>
     {% if recipes %}
         {% include "cooking/includes/recipes.html" %}
     {% else %}

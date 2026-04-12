@@ -2,9 +2,9 @@
     {% for recipe in recipes %}
         <div class="card">
             <a href="{{ recipe.get_absolute_url }}" class="card_title">{{ recipe.name }}</a>
-            <div class="card_subtitle">Кухня: {{ recipe.cuisine.get_name_display }}</div>
+            <div class="card_subtitle">Кухня: {{ recipe.cuisine.name }}</div>
             <div class="card_subtitle">Автор: {{ recipe.author.user.username }}</div>
-            <div class="card_subtitle">Категория: {{ recipe.category.get_name_display }}</div>
+            <div class="card_subtitle">Категория: {{ recipe.category.name }}</div>
         </div>
     {% endfor %}
 </div>

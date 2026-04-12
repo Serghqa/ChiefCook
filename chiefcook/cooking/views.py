@@ -2,7 +2,7 @@ from django.http import HttpRequest, Http404
 from django.shortcuts import render, get_object_or_404
 from django.db.models import QuerySet
 
-from . models import Recipe, Category, Cuisine, Tag, Ingredient
+from . models import Recipe, Category, Cuisine, Ingredient, Tag
 
 
 def index(request: HttpRequest):
