@@ -21,6 +21,6 @@ from debug_toolbar.toolbar import debug_toolbar_urls
 admin.site.site_header = "Панель администрирования"
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('cooking.urls', namespace='cooking')),
+    path("admin/", admin.site.urls),
+    path("", include("cooking.urls", namespace="cooking")),
 ] + debug_toolbar_urls()
