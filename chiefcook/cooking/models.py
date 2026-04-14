@@ -1,8 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.utils.text import slugify
 from django.urls import reverse
-from transliterate import slugify as trans_slugify
+from unidecode import unidecode
 
 from django.db import models
 
@@ -22,8 +22,9 @@ class Category(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        self.slug = trans_slugify(self.name)
-        return super().save(*args, **kwargs)
+        if not self.pk:
+            self.slug = slugify(unidecode(self.name))
+            return super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse("cooking:category", kwargs={"slug": self.slug})
@@ -45,8 +46,9 @@ class Cuisine(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        self.slug = trans_slugify(self.name)
-        return super().save(*args, **kwargs)
+        if not self.pk:
+            self.slug = slugify(unidecode(self.name))
+            return super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse("cooking:cuisine", kwargs={"slug": self.slug})
@@ -68,8 +70,9 @@ class Tag(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        self.slug = trans_slugify(self.name)
-        return super().save(*args, **kwargs)
+        if not self.pk:
+            self.slug = slugify(unidecode(self.name))
+            return super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse("cooking:tag", kwargs={"slug": self.slug})
@@ -116,8 +119,9 @@ class Recipe(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        self.slug = trans_slugify(self.name)
-        return super().save(*args, **kwargs)
+        if not self.pk:
+            self.slug = slugify(unidecode(self.name))
+            return super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse("cooking:recipe", kwargs={"slug": self.slug})

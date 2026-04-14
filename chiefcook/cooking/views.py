@@ -55,6 +55,7 @@ def recipe(request: HttpRequest, slug: str):
 
     return render(request, "cooking/recipe.html", context)
 
+
 def tag(request: HttpRequest, slug: str):
     tag: Tag = get_object_or_404(Tag, slug=slug)
     recipes: QuerySet[Recipe] = Recipe.objects.select_related(

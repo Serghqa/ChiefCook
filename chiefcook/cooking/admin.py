@@ -19,6 +19,8 @@ class ModelRecipe(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
     inlines = [IngredientInline]
     filter_horizontal = ("tags",)
+    search_fields = ["name"]
+    list_filter = ["author", "category", "cuisine", "tags"]
 
 
 @admin.register(Cuisine)
