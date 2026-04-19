@@ -1,10 +1,10 @@
-<div class="cards_container">
+<div class="cards-container">
     {% for recipe in recipes %}
         <div class="card">
-            <a href="{{ recipe.get_absolute_url }}" class="card_title">{{ recipe.name }}</a>
-            <div class="card_subtitle">Кухня: {{ recipe.cuisine.name }}</div>
-            <div class="card_subtitle">Автор: {{ recipe.author.user.username }}</div>
-            <div class="card_subtitle">Категория: {{ recipe.category.name }}</div>
+            <a href="{{ recipe.get_absolute_url }}" class="card-title">{{ recipe.name }}</a>
+            <div class="card-subtitle">Кухня: {{ recipe.cuisine.name }}</div>
+            <div class="card-subtitle">Автор: {{ recipe.author.user.username }}</div>
+            <div class="card-subtitle">Категория: {{ recipe.category.name }}</div>
         </div>
     {% endfor %}
 </div>

@@ -43,7 +43,7 @@ h5 { font-size: 1.1rem; }
 h6 { font-size: 1rem; }
 
 /* 3. ШАПКА */
-.main_header {
+.main-header {
     flex-shrink: 0;
     /* Не дает шапке сжиматься */
     background-color: rgba(255, 255, 255, 0.9);
@@ -53,7 +53,7 @@ h6 { font-size: 1rem; }
     z-index: 1000;
 }
 
-.header_container {
+.header-container {
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 20px;
@@ -62,19 +62,19 @@ h6 { font-size: 1rem; }
     align-items: center;
 }
 
-.nav_menu {
+.nav-menu {
     display: flex;
     gap: 25px;
 }
 
-.nav_menu a {
+.nav-menu a {
     text-decoration: none;
     color: #555;
     font-weight: 500;
     transition: var(--transition);
 }
 
-.nav_menu a:hover {
+.nav-menu a:hover {
     color: var(--primary-color);
 }
 
@@ -88,7 +88,7 @@ h6 { font-size: 1rem; }
     font-size: 1.2rem;
 }
 
-.logo_img {
+.logo-img {
     height: 40px;
     width: 40px;
 }
@@ -104,7 +104,7 @@ h6 { font-size: 1rem; }
 }
 
 /* Если хотите, чтобы картинка (🍳) тоже реагировала */
-.logo:hover .logo_img {
+.logo:hover .logo-img {
     transform: scale(1.1);
     /* Слегка увеличится */
     transition: var(--transition);
@@ -122,19 +122,8 @@ main {
     overflow: hidden;
 }
 
-/* Боковая панель */
-.sidebar {
-    width: 200px;
-    flex-shrink: 0;
-    border-right: 1px solid #eee;
-    padding: 30px 20px;
-    overflow-y: auto;
-    /* Свой скролл */
-    background-color: #fff;
-}
-
 /* Контентная область */
-.main_content {
+.main-content {
     flex: 1;
     padding: 40px;
     overflow-y: auto;
@@ -144,20 +133,33 @@ main {
 }
 
 /* Центровщик внутри контента */
-.main_content>* {
+.main-content>* {
     max-width: 1100px;
     margin-left: auto;
     margin-right: auto;
 }
 
+/* Боковая панель */
+.sidebar {
+    width: 200px;
+    flex-shrink: 0;
+    border-right: 1px solid #eee;
+    padding: 30px 20px;
+    overflow-y: auto;
+    /* Свой скролл */
+    background-color: #fff;
+    overflow-x: hidden;
+    word-break: break-word;
+}
+
 /* 5. СКРОЛЛБАРЫ */
 .sidebar::-webkit-scrollbar,
-.main_content::-webkit-scrollbar {
+.main-content::-webkit-scrollbar {
     width: 6px;
 }
 
 .sidebar::-webkit-scrollbar-thumb,
-.main_content::-webkit-scrollbar-thumb {
+.main-content::-webkit-scrollbar-thumb {
     background: #ccc;
     border-radius: 10px;
 }
@@ -177,20 +179,20 @@ main {
 }
 
 /* Стили для контейнера внутри сайдбара */
-.sidebar_content {
+.sidebar-content {
     display: flex;
     flex-direction: column;
     gap: 5px;
     /* Расстояние между блоками */
 }
 
-.sidebar_nav {
+.sidebar-nav {
     display: flex;
     flex-direction: column;
     gap: 1px;
 }
 
-.sidebar_nav a {
+.sidebar-nav a {
     text-decoration: none;
     color: #444;
     padding: 8px 8px;
@@ -198,15 +200,14 @@ main {
     transition: var(--transition);
 }
 
-.sidebar_nav a:hover,
-.sidebar_nav a.active {
+.sidebar-nav a:hover {
     background: #fff;
     color: var(--primary-color);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 /* 7. КАРТОЧКИ */
-.cards_container {
+.cards-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 20px;
@@ -228,7 +229,7 @@ main {
     transform: translateY(-3px);
 }
 
-.card_title {
+.card-title {
     display: block;
     font-size: 1.2rem;
     color: var(--text-dark);
@@ -237,26 +238,26 @@ main {
     margin-bottom: 8px;
 }
 
-.card_title::after {
+.card-title::after {
     content: "";
     position: absolute;
     inset: 0;
 }
 
-.card_subtitle {
+.card-subtitle {
     color: var(--text-gray);
     font-size: 0.9rem;
 }
 
 /* 8. СТРАНИЦА РЕЦЕПТА */
-.recipe_detail {
+.recipe-detail {
     background: #fff;
     padding: 40px;
     border-radius: 20px;
     box-shadow: var(--shadow-sm);
 }
 
-.cuisine_badge {
+.cuisine-badge {
     display: inline-block;
     background: #fef1e6;
     color: var(--accent-color);
@@ -267,18 +268,18 @@ main {
     margin-bottom: 25px;
 }
 
-.ingredients_list li {
+.ingredients-list li {
     padding: 10px 0;
     border-bottom: 1px dashed #eee;
     list-style: none;
 }
 
-.ingredients_list li::before {
+.ingredients-list li::before {
     content: "🔸";
     margin-right: 10px;
 }
 
-.instructions_section {
+.instructions-section {
     background: #fcfcfc;
     padding: 25px;
     border-radius: 15px;
@@ -287,7 +288,7 @@ main {
 }
 
 /* 9. ПОДВАЛ (КОМПАКТНЫЙ) */
-.main_footer {
+.main-footer {
     flex-shrink: 0;
     /* Не дает футеру сжиматься */
     background-color: #2d3436;
@@ -296,7 +297,7 @@ main {
     border-top: 2px solid var(--primary-color);
 }
 
-.footer_content {
+.footer-content {
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 20px;
@@ -305,55 +306,55 @@ main {
     align-items: center;
 }
 
-.footer_copy {
+.footer-copy {
     margin: 0;
     font-size: 0.8rem;
     opacity: 0.7;
 }
 
-.footer_logo {
+.footer-logo {
     font-weight: bold;
     font-size: 1rem;
     color: #fff;
 }
 
 /* 10. СТИЛИ ДЛЯ ФОРМЫ */
-.form_card {
+.form-card {
     background: var(--bg-card);
     padding: 30px;
     border-radius: 14px;
     box-shadow: var(--shadow-sm);
 }
 
-.form_card h3 {
+.form-card h3 {
     color: var(--text-dark);
     margin-bottom: 25px;
     font-size: 1.5rem;
 }
 
-.form_card h4 {
+.form-card h4 {
     color: var(--accent-color);
     margin: 25px 0 15px 0;
 }
 
 /* Стили для разделителя */
-.form_card hr {
+.form-card hr {
     border: 0;
     height: 2px;
     background: linear-gradient(to right, transparent, var(--primary-color), transparent);
     margin: 30px 0;
 }
 
-.form_card label {
+.form-card label {
     font-weight: 600;
     color: var(--text-dark);
     display: block;
     margin-bottom: 5px;
 }
 
-.form_card input,
-.form_card select,
-.form_card textarea {
+.form-card input,
+.form-card select,
+.form-card textarea {
     width: 100%;
     max-width: 400px;
     padding: 10px;
@@ -362,19 +363,19 @@ main {
     font-family: inherit;
 }
 
-.form_card input[type="number"] {
+.form-card input[type="number"] {
     max-width: 200px;
 }
 
-.form_card input:focus,
-.form_card select:focus,
-.form_card textarea:focus {
+.form-card input:focus,
+.form-card select:focus,
+.form-card textarea:focus {
     outline: none;
     border-color: var(--primary-color);
 }
 
 /* Поля формы */
-.form_recipe {
+.form-recipe {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -406,7 +407,7 @@ main {
 }
 
 /* Ингредиенты */
-.form_ingredients {
+.form-ingredients {
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -421,7 +422,7 @@ main {
 }
 
 .ingredient-form p {
-    margin: 5;
+    margin: 5px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr auto;
     gap: 10px;
@@ -455,13 +456,13 @@ main {
     font-weight: 600;
 }
 
-.btn_add {
+.btn-add {
     background: var(--bg-page);
     border: 1px dashed #ccc;
     width: 100%;
 }
 
-.btn_save {
+.btn-save {
     background: var(--primary-color);
     color: white;
     width: 100%;
@@ -501,7 +502,7 @@ main {
         overflow: visible;
     }
 
-    .main_content {
+    .main-content {
         height: auto;
         overflow: visible;
         padding: 20px;

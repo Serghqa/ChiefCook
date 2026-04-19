@@ -18,17 +18,17 @@
               rel="stylesheet">
     </head>
     <body>
-        <header class="main_header">
-            <div class="header_container">
+        <header class="main-header">
+            <div class="header-container">
                 <a href="{% url 'cooking:index' %}" class="logo">
                     <img src="{% static 'cooking/images/logo.png' %}"
                          alt="Логотип"
-                         class="logo_img"
+                         class="logo-img"
                          width="40"
                          height="40">
                     <span>Мои рецепты</span>
                 </a>
-                <nav class="nav_menu">
+                <nav class="nav-menu">
                     <a href="{% url 'cooking:add_recipe' %}">Добавить рецепт</a>
                     <a href="{% url 'cooking:index' %}">Главная</a>
                     <a href="{% url 'cooking:index' %}">Зарегистрироваться</a>
@@ -41,23 +41,21 @@
             <aside class="sidebar">
                 {% block sidebar %}
                     <!-- Контент по умолчанию -->
-                    <div class="sidebar_content">
+                    <div class="sidebar-content">
                         {% load sidebar_tags %}
                         {% show_sidebar %}
                     </div>
                 {% endblock sidebar %}
             </aside>
             <!-- Основной контент -->
-            <section class="main_content">
+            <section class="main-content">
                 {% block content %}<!-- Сюда будет подставляться содержимое страниц -->{% endblock %}
             </section>
         </main>
-        <footer class="main_footer">
-            <div class="footer_container">
-                <div class="footer_content">
-                    <span class="footer_logo">Мои рецепты</span>
-                    <p class="footer_copy">©; {% now "Y" %} Мои Рецепты. Сделано с любовью.</p>
-                </div>
+        <footer class="main-footer">
+            <div class="footer-content">
+                <span class="footer-logo">Мои рецепты</span>
+                <p class="footer-copy">©; {% now "Y" %} Мои Рецепты. Сделано с любовью.</p>
             </div>
         </footer>
         <script src="https://unpkg.com/htmx.org@1.9.10"></script>

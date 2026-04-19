@@ -14,11 +14,13 @@ class RecipeForm(forms.ModelForm):
     category = forms.ModelChoiceField(
         queryset=Category.objects.all(),
         widget=forms.Select(),
+        label="Категория",
         empty_label="Выберите категорию",
     )
     cuisine = forms.ModelChoiceField(
         queryset=Cuisine.objects.all(),
         widget=forms.Select(),
+        label="Кухня",
         empty_label="Выберите кухню",
     )
     class Meta:

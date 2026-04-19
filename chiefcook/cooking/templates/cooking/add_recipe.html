@@ -6,29 +6,32 @@
     <nav class="breadcrumbs">
         <a href="{% url 'cooking:index' %}">Главная</a> / <span>{{ "Добавить рецепт" }}</span>
     </nav>
-    <div class="form_card">
+    <div class="form-card">
         <h3>Создание рецепта</h3>
         <hr>
         <form method="post" id="recipe-form">
             {% csrf_token %}
-            <h4>Описание рецепта</h4>
-            <div class="form_recipe">
+            <div class="form-recipe">
+                <h4>Описание рецепта</h4>
                 {{ form_recipe.as_p }}
                 <hr>
                 <h4>Ингредиенты</h4>
                 {{ formset.management_form }}
                 <div id="ingredients-container">
-                    <div class="form_ingredients">
-                        {% for form in formset %}<div class="ingredient-form">{{ form.as_p }}</div>{% endfor %}
+                    <div class="form-ingredients">
+                        {% for form in formset %}
+                        <div class="ingredient-form">
+                            {{ form.as_p }}
+                        </div>{% endfor %}
                     </div>
                 </div>
                 <button type="button"
-                        class="btn btn_add"
+                        class="btn btn-add"
                         hx-get="{% url 'cooking:add_ingredient_form' %}"
                         hx-target="#ingredients-container"
                         hx-swap="beforeend">+ Добавить ингредиент</button>
                 <div>
-                    <button type="submit" class="btn btn_save">🚀 Опубликовать рецепт</button>
+                    <button type="submit" class="btn btn-save">🚀 Опубликовать рецепт</button>
                 </div>
             </div>
         </form>
