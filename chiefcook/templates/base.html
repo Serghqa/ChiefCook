@@ -29,6 +29,7 @@
                     <span>Мои рецепты</span>
                 </a>
                 <nav class="nav_menu">
+                    <a href="{% url 'cooking:add_recipe' %}">Добавить рецепт</a>
                     <a href="{% url 'cooking:index' %}">Главная</a>
                     <a href="{% url 'cooking:index' %}">Зарегистрироваться</a>
                     <a href="{% url 'cooking:index' %}">Войти</a>
@@ -59,5 +60,11 @@
                 </div>
             </div>
         </footer>
+        <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+        <script>
+            document.body.addEventListener('htmx:configRequest', (event) => {
+                event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+            });
+        </script>
     </body>
 </html>

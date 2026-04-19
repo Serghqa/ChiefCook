@@ -2,8 +2,7 @@
 {% block title %}{{ recipe.name }}{% endblock title %}
 {% block content %}
     <nav class="breadcrumbs">
-        <a href="{% url 'cooking:index' %}">Главная</a> /
-        <span>{{ recipe.name }}</span>
+        <a href="{% url 'cooking:index' %}">Главная</a> / <span>{{ recipe.name }}</span>
     </nav>
     <article class="recipe_detail">
         <h2>{{ recipe.name }}</h2>
@@ -17,6 +16,8 @@
             </ul>
         </section>
         <section class="instructions_section">
+            <h4>Описание блюда</h4>
+            {{ recipe.description|linebreaks }}
             <h4>Способ приготовления</h4>
             {{ recipe.instructions|linebreaks }}
         </section>

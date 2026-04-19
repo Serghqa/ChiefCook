@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block title %}
+    {{ "Добавить новый рецепт" }}
+{% endblock title %}
+{% block content %}
+    <nav class="breadcrumbs">
+        <a href="{% url 'cooking:index' %}">Главная</a> / <span>{{ "Добавить рецепт" }}</span>
+    </nav>
+    <div class="form_card">
+        <h3>Создание рецепта</h3>
+        <hr>
+        <form method="post" id="recipe-form">
+            {% csrf_token %}
+            <h4>Описание рецепта</h4>
+            <div class="form_recipe">
+                {{ form_recipe.as_p }}
+                <hr>
+                <h4>Ингредиенты</h4>
+                {{ formset.management_form }}
+                <div id="ingredients-container">
+                    <div class="form_ingredients">
+                        {% for form in formset %}<div class="ingredient-form">{{ form.as_p }}</div>{% endfor %}
+                    </div>
+                </div>
+                <button type="button"
+                        class="btn btn_add"
+                        hx-get="{% url 'cooking:add_ingredient_form' %}"
+                        hx-target="#ingredients-container"
+                        hx-swap="beforeend">+ Добавить ингредиент</button>
+                <div>
+                    <button type="submit" class="btn btn_save">🚀 Опубликовать рецепт</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script>
+        // Функция для обновления индексов форм после добавления/удаления
+        function updateFormIndices() {
+            const container = document.getElementById('ingredients-container');
+            const forms = container.querySelectorAll('.ingredient-form');
+
+            forms.forEach((form, index) => {
+                // Обновляем все поля формы
+                const inputs = form.querySelectorAll('input, select, textarea');
+                inputs.forEach(input => {
+                    const name = input.getAttribute('name');
+                    if (name && name.includes('ingredients-')) {
+                        const newName = name.replace(/ingredients-\d+-/, `ingredients-${index}-`);
+                        input.setAttribute('name', newName);
+                    }
+
+                    const id = input.getAttribute('id');
+                    if (id && id.includes('id_ingredients-')) {
+                        const newId = id.replace(/id_ingredients-\d+-/, `id_ingredients-${index}-`);
+                        input.setAttribute('id', newId);
+                    }
+                });
+
+                // Обновляем labels
+                const labels = form.querySelectorAll('label');
+                labels.forEach(label => {
+                    const forAttr = label.getAttribute('for');
+                    if (forAttr && forAttr.includes('id_ingredients-')) {
+                        const newFor = forAttr.replace(/id_ingredients-\d+-/, `id_ingredients-${index}-`);
+                        label.setAttribute('for', newFor);
+                    }
+                });
+            });
+
+            // Обновляем TOTAL_FORMS
+            const totalForms = document.getElementById('id_ingredients-TOTAL_FORMS');
+            if (totalForms) {
+                totalForms.value = forms.length;
+            }
+        }
+
+        // Слушаем события добавления форм
+        document.addEventListener('htmx:afterSwap', function(event) {
+            if (event.target.id === 'ingredients-container') {
+                updateFormIndices();
+            }
+        });
+
+        // Удаление формы
+        document.addEventListener('click', function(event) {
+            if (event.target.classList.contains('remove-ingredient')) {
+                event.target.closest('.ingredient-form').remove();
+                updateFormIndices();
+            }
+        });
+    </script>
+{% endblock content %}

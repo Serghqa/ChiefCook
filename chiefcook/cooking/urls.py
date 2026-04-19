@@ -10,4 +10,6 @@ urlpatterns = [
      path("recipe/<slug:slug>/", views.recipe, name="recipe"),
      path("tag/<slug:slug>/", views.tag, name="tag"),
      path("cuisine/<slug:slug>/", views.cuisine, name="cuisine"),
+     path("addrecipe/", views.add_recipe, name="add_recipe"),
+     path("add-ingredient-form/", views.add_ingredient_form, name="add_ingredient_form"),
 ]

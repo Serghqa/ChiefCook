@@ -12,8 +12,7 @@
 }
 
 /* 2. БАЗОВЫЕ СТИЛИ (ФИКСИРУЕМ ЭКРАН) */
-html,
-body {
+html, body {
     height: 100vh;
     margin: 0;
 }
@@ -29,6 +28,19 @@ body {
     /* Отключаем общий скролл окна */
     -webkit-font-smoothing: antialiased;
 }
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0 0 15px 0;
+    color: var(--text-dark);
+    line-height: 1.3;
+}
+
+h1 { font-size: 2rem; }
+h2 { font-size: 1.75rem; }
+h3 { font-size: 1.5rem; }
+h4 { font-size: 1.25rem; }
+h5 { font-size: 1.1rem; }
+h6 { font-size: 1rem; }
 
 /* 3. ШАПКА */
 .main_header {
@@ -305,7 +317,170 @@ main {
     color: #fff;
 }
 
-/* 10. АДАПТИВНОСТЬ */
+/* 10. СТИЛИ ДЛЯ ФОРМЫ */
+.form_card {
+    background: var(--bg-card);
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: var(--shadow-sm);
+}
+
+.form_card h3 {
+    color: var(--text-dark);
+    margin-bottom: 25px;
+    font-size: 1.5rem;
+}
+
+.form_card h4 {
+    color: var(--accent-color);
+    margin: 25px 0 15px 0;
+}
+
+/* Стили для разделителя */
+.form_card hr {
+    border: 0;
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--primary-color), transparent);
+    margin: 30px 0;
+}
+
+.form_card label {
+    font-weight: 600;
+    color: var(--text-dark);
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form_card input,
+.form_card select,
+.form_card textarea {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: inherit;
+}
+
+.form_card input[type="number"] {
+    max-width: 200px;
+}
+
+.form_card input:focus,
+.form_card select:focus,
+.form_card textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+/* Поля формы */
+.form_recipe {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Компактные теги */
+.tag-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    max-width: 500px;
+}
+
+.tag-grid div {
+    background: #f0f0f0;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+}
+
+.tag-grid input {
+    width: auto !important;
+    margin-right: 5px;
+}
+
+.tag-grid label {
+    display: inline !important;
+    font-weight: normal !important;
+}
+
+/* Ингредиенты */
+.form_ingredients {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.ingredient-form {
+    background: #fafafa;
+    padding: 15px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+}
+
+.ingredient-form p {
+    margin: 5;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr auto;
+    gap: 10px;
+    align-items: center;
+}
+
+.ingredient-form label {
+    display: none;
+}
+
+.remove-ingredient {
+    background: #fff;
+    color: #e74c3c;
+    border: 1px solid #e74c3c;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.remove-ingredient:hover {
+    background: #e74c3c;
+    color: #fff;
+}
+
+/* Кнопки */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn_add {
+    background: var(--bg-page);
+    border: 1px dashed #ccc;
+    width: 100%;
+}
+
+.btn_save {
+    background: var(--primary-color);
+    color: white;
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* 11. Хлебные крошки */
+.breadcrumbs {
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    color: var(--text-gray);
+}
+
+.breadcrumbs a {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+/* 12. АДАПТИВНОСТЬ */
 @media (max-width: 900px) {
     body {
         overflow: auto;
@@ -330,5 +505,9 @@ main {
         height: auto;
         overflow: visible;
         padding: 20px;
+    }
+
+    .ingredient-form p {
+        grid-template-columns: 1fr;
     }
 }
