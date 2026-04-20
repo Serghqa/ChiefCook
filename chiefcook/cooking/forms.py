@@ -1,7 +1,8 @@
 from typing import Any
 
 from django import forms
-from django.forms import inlineformset_factory
+from django.forms import inlineformset_factory, BaseInlineFormSet
+from django.core.exceptions import ValidationError
 
 from .models import Recipe, Tag, Ingredient, Category, Cuisine
 
@@ -31,7 +32,7 @@ class RecipeForm(forms.ModelForm):
         widgets = {
             "name": forms.TextInput(
                 attrs={
-                    "placeholder": "Введите название рецепта...",
+                    "placeholder": "Название рецепта...",
                 }
             ),
             "description": forms.Textarea(
@@ -48,7 +49,7 @@ class RecipeForm(forms.ModelForm):
             ),
             "cooking_time": forms.NumberInput(
                 attrs={
-                    "placeholder": "Минуты",
+                    "placeholder": "Минуты...",
                 }
             ),
         }
@@ -61,22 +62,18 @@ class IngredientForm(forms.ModelForm):
         widgets = {
             "name": forms.TextInput(
                 attrs={
-                    "placeholder": "Введите название ингредиента",
+                    "placeholder": "Название ингредиента...",
                 }
             ),
             "amount": forms.NumberInput(
                 attrs={
                     "step": "0.1",
                     "min": "0",
+                    "placeholder": "Количество...",
                 }
             ),
             "unit": forms.Select(),
         }
-
-    def clean_name(self):
-        name = self.cleaned_data["name"]
-        print(name)
-        return name
 
 
 IngredientFormSet = inlineformset_factory(

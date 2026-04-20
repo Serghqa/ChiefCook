@@ -378,7 +378,7 @@ main {
 .form-recipe {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 1px;
 }
 
 /* Компактные теги */
@@ -429,10 +429,6 @@ main {
     align-items: center;
 }
 
-.ingredient-form label {
-    display: none;
-}
-
 .remove-ingredient {
     background: #fff;
     color: #e74c3c;
@@ -462,11 +458,19 @@ main {
     width: 100%;
 }
 
+.btn-add:hover {
+    background: #c9c7c7;
+}
+
 .btn-save {
-    background: var(--primary-color);
+    background: #4CAF50;
     color: white;
     width: 100%;
     margin-top: 20px;
+}
+
+.btn-save:hover {
+    background: #45a049;  /* Темно-зеленый при наведении */
 }
 
 /* 11. Хлебные крошки */
