@@ -79,6 +79,7 @@ def add_recipe(request: HttpRequest):
         formset = IngredientFormSet(request.POST, prefix="ingredients")
         if form_recipe.is_valid() and formset.is_valid():
             recipe = form_recipe.save(commit=False)
+
             recipe.author = profile
             recipe.save()
             form_recipe.save_m2m()  # сохранение ManyToMany (tags)

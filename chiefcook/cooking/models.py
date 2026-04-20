@@ -119,9 +119,12 @@ class Recipe(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        if not self.pk:
+        if not self.slug:
             self.slug = slugify(unidecode(self.name))
+        if not self.pk:
             super().save(*args, **kwargs)
+        self.slug = f"{self.slug}-{self.pk}"
+        super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse("cooking:recipe", kwargs={"slug": self.slug})

@@ -1,3 +1,5 @@
+from typing import Any
+
 from django import forms
 from django.forms import inlineformset_factory
 
@@ -64,11 +66,17 @@ class IngredientForm(forms.ModelForm):
             ),
             "amount": forms.NumberInput(
                 attrs={
-                    "placeholder": "Введите количество",
+                    "step": "0.1",
+                    "min": "0",
                 }
             ),
             "unit": forms.Select(),
         }
+
+    def clean_name(self):
+        name = self.cleaned_data["name"]
+        print(name)
+        return name
 
 
 IngredientFormSet = inlineformset_factory(
