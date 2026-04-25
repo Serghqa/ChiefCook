@@ -87,9 +87,16 @@ def add_recipe(request: HttpRequest):
             for ingredient in ingredients:
                 ingredient.recipe = recipe
                 ingredient.save()
-            for del_ingredient in formset.deleted_objects:
-                del_ingredient.delete()
             return redirect("cooking:recipe", slug=recipe.slug)
+        else:
+            non_form_error = formset.non_form_errors() or None
+
+            context = {
+                "error_form_ingredient": non_form_error,
+                "form_recipe": form_recipe,
+                "formset": formset,
+            }
+            return render(request, "cooking/add_recipe.html", context)
 
     form_recipe = RecipeForm()
     formset = IngredientFormSet(prefix="ingredients")

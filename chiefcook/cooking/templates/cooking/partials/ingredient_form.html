@@ -1,4 +1,13 @@
 <div class="ingredient-form">
-    {{ form.as_p }}
-    <button type="button" class="remove-ingredient">Удалить</button>
+    {% for field in form %}
+        {% if field.name != "id" and field.name != "recipe" %}
+            <div class="field-wrapper">
+                {{ field.label_tag }} {{ field }}
+            </div>
+            <div class="error">
+                {{ field.errors }}
+            </div>
+        {% endif %}
+    {% endfor %}
+    <button type="button" class="btn-remove-ingredient">Удалить</button>
 </div>

@@ -319,42 +319,57 @@ main {
 }
 
 /* 10. СТИЛИ ДЛЯ ФОРМЫ */
-.form-card {
+.form-recipe-container {
     background: var(--bg-card);
     padding: 30px;
     border-radius: 14px;
     box-shadow: var(--shadow-sm);
 }
 
-.form-card h3 {
+.form-recipe-container h3 {
     color: var(--text-dark);
     margin-bottom: 25px;
     font-size: 1.5rem;
 }
 
-.form-card h4 {
+.form-recipe-container h4 {
     color: var(--accent-color);
     margin: 25px 0 15px 0;
 }
 
 /* Стили для разделителя */
-.form-card hr {
+.form-recipe-container hr {
     border: 0;
     height: 2px;
     background: linear-gradient(to right, transparent, var(--primary-color), transparent);
     margin: 30px 0;
 }
 
-.form-card label {
+.form-recipe-container label {
     font-weight: 600;
     color: var(--text-dark);
     display: block;
     margin-bottom: 5px;
 }
 
-.form-card input,
-.form-card select,
-.form-card textarea {
+/* Поля формы */
+.form-recipe {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background: #fafafa;
+    padding: 15px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+}
+
+.i-name-field,
+.i-amount-field,
+.i-unit-field,
+.r-time-field,
+.r-text-field,
+.r-name-field,
+.r-select-field {
     width: 100%;
     max-width: 400px;
     padding: 10px;
@@ -363,47 +378,51 @@ main {
     font-family: inherit;
 }
 
-.form-card input[type="number"] {
+.r-select-field {
     max-width: 200px;
+    cursor: pointer;
 }
 
-.form-card input:focus,
-.form-card select:focus,
-.form-card textarea:focus {
+.r-time-field:focus,
+.i-name-field:focus,
+.i-amount-field:focus,
+.i-unit-field:focus,
+.r-text-field:focus,
+.r-name-field:focus,
+.r-select-field:focus {
     outline: none;
     border-color: var(--primary-color);
 }
 
-/* Поля формы */
-.form-recipe {
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
+.r-time-field {
+    max-width: 100px;
 }
 
 /* Компактные теги */
-.tag-grid {
+.tag-field {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
     max-width: 500px;
 }
 
-.tag-grid div {
+.tag-field div {
     background: #f0f0f0;
     padding: 4px 10px;
     border-radius: 20px;
     font-size: 0.85rem;
 }
 
-.tag-grid input {
-    width: auto !important;
+.tag-field input {
+    width: auto;
     margin-right: 5px;
+    cursor: pointer;
+    transition: background 0.2s;
 }
 
-.tag-grid label {
-    display: inline !important;
-    font-weight: normal !important;
+.tag-field label {
+    display: inline;
+    font-weight: normal;
 }
 
 /* Ингредиенты */
@@ -415,21 +434,73 @@ main {
 }
 
 .ingredient-form {
+    position: relative;
     background: #fafafa;
     padding: 15px;
     border: 1px solid #eee;
     border-radius: 10px;
+    margin-bottom: 10px;
 }
 
-.ingredient-form p {
-    margin: 5px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr auto;
-    gap: 10px;
-    align-items: center;
+.i-name-field {
+    max-width: 200px;
 }
 
-.remove-ingredient {
+.i-amount-field {
+    max-width: 100px;
+}
+
+.i-unit-field {
+    max-width: 100px;
+    cursor: pointer;
+}
+
+
+/* Стили для обертки поля в форме ингредиентов */
+.ingredient-form .field-wrapper {
+    display: flex;
+    align-items: center; /* Выравнивание по вертикали по центру */
+    gap: 5px; /* Расстояние между элементами */
+    margin-bottom: 10px; /* Отступ снизу между строками полей */
+}
+
+.ingredient-form .field-wrapper label {
+    margin: 0; /* Убираем стандартный марджин у label */
+    flex-shrink: 0; /* Предотвращаем сжатие метки */
+    min-width: 100px; /* При необходимости задайте фиксированную ширину для меток */
+    font-weight: 600; /* Сделайте метки жирными, если нужно */
+    color: var(--text-dark); /* Примените цвет из ваших переменных */
+}
+
+/* Стили для блока с ошибками */
+.error {
+    margin: 0;
+    padding: 0;
+    font-size: 0.8rem;
+    color: #e74c3c;
+    /* flex-shrink: 0; */ /* Не сжимается */
+    /* flex-grow: 0; */ /* Не растягивается */
+    /* min-width: fit-content; */ /* Ширина по содержимому */
+    /* Ниже стиль делает ошибку компактной и рядом с полем */
+    align-self: flex-start; /* Выравнивание по верхнему краю, если текст ошибки многострочный */
+}
+
+.error li {
+    /* Убираем маркер у элемента списка */
+    list-style: none;
+    /* Стилизуем сам текст ошибки */
+    font-size: 1rem; /* Меньший размер шрифта */
+    color: #e74c3c; /* Красный цвет для ошибок */
+    /* Дополнительные стили по желанию, например, отступы */
+    /* padding: 2px 0; */
+    /* background-color: #ffeaea; */
+    /* border-radius: 3px; */
+}
+
+
+
+/* Кнопки */
+.btn-remove-ingredient {
     background: #fff;
     color: #e74c3c;
     border: 1px solid #e74c3c;
@@ -438,14 +509,12 @@ main {
     cursor: pointer;
 }
 
-.remove-ingredient:hover {
+.btn-remove-ingredient:hover {
     background: #e74c3c;
     color: #fff;
 }
 
-/* Кнопки */
 .btn {
-    padding: 10px 20px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -453,9 +522,10 @@ main {
 }
 
 .btn-add {
+    padding: 5px 10px;
     background: var(--bg-page);
-    border: 1px dashed #ccc;
     width: 100%;
+    margin-top: 10px;
 }
 
 .btn-add:hover {
@@ -463,10 +533,11 @@ main {
 }
 
 .btn-save {
+    padding: 10px 20px;
     background: #4CAF50;
     color: white;
     width: 100%;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .btn-save:hover {
