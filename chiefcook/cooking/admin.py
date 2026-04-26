@@ -27,7 +27,7 @@ class ModelRecipe(admin.ModelAdmin):
     @admin.display(description="Изображение")
     def show_image(self, recipe: Recipe):
         if recipe.image:
-            return mark_safe(f"<img src='{recipe.image.url}' width=50 higth=50>")
+            return mark_safe(f"<img src='{recipe.image.url}' width=50>")
 
 
 @admin.register(Cuisine)
