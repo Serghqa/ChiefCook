@@ -46,6 +46,9 @@ ENV/
 .vscode/
 .idea/
 *.swp
+*.jpg
+*.png
+*.webp
 
 # System files
 .DS_Store

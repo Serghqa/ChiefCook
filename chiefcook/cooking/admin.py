@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
+
 from cooking.models import Category, Cuisine, Recipe, Ingredient, Tag
 
 
@@ -28,6 +29,7 @@ class ModelRecipe(admin.ModelAdmin):
     def show_image(self, recipe: Recipe):
         if recipe.image:
             return mark_safe(f"<img src='{recipe.image.url}' width=50>")
+        return mark_safe('<span style="color: gray;">Нет изображения</span>')
 
 
 @admin.register(Cuisine)
