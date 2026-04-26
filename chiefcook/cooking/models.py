@@ -4,8 +4,6 @@ from django.utils.text import slugify
 from django.urls import reverse
 from unidecode import unidecode
 
-from django.db import models
-
 class Category(models.Model):
     name = models.CharField(
         max_length=50,
@@ -109,6 +107,7 @@ class Recipe(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Дата обновления")
     slug = models.SlugField(max_length=255, unique=True, verbose_name="URL")
+    image = models.ImageField(upload_to="recipe/%Y/%m/%d/", blank=True, null=True, verbose_name="Изображение")
 
     class Meta:
         ordering = ['-created_at']

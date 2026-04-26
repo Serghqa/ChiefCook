@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.safestring import mark_safe
 from cooking.models import Category, Cuisine, Recipe, Ingredient, Tag
 
 
@@ -14,13 +15,19 @@ class ModelCategory(admin.ModelAdmin):
 
 @admin.register(Recipe)
 class ModelRecipe(admin.ModelAdmin):
-    list_display = ["name"]
+    list_display = ["name", "show_image"]
     list_per_page = 10
     prepopulated_fields = {"slug": ("name",)}
     inlines = [IngredientInline]
     filter_horizontal = ("tags",)
     search_fields = ["name"]
     list_filter = ["author", "category", "cuisine", "tags"]
+    save_on_top = True
+
+    @admin.display(description="Изображение")
+    def show_image(self, recipe: Recipe):
+        if recipe.image:
+            return mark_safe(f"<img src='{recipe.image.url}' width=50 higth=50>")
 
 
 @admin.register(Cuisine)
