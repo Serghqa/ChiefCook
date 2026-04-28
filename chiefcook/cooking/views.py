@@ -1,21 +1,11 @@
-from typing import Any
-
 from django.http import HttpRequest, Http404
 from django.shortcuts import redirect, render, get_object_or_404
-from django.db.models import QuerySet
 from django.views.generic import ListView, DetailView
+from django.contrib.auth.decorators import login_required
 
-from . models import Recipe, Category, Cuisine, Ingredient, Tag, Profile
-from . forms import RecipeForm, IngredientForm, IngredientFormSet
+from . models import Recipe, Category, Cuisine, Tag
+from . forms import RecipeForm, IngredientFormSet
 
-
-# def index(request: HttpRequest):
-#     recipes: QuerySet[Recipe] = Recipe.objects.select_related("author__user", "category", "cuisine").all()
-#     context = {
-#         "recipes": recipes,
-#     }
-
-#     return render(request, "cooking/index.html", context)
 
 class IndexView(ListView):
     template_name = "cooking/index.html"
@@ -24,18 +14,6 @@ class IndexView(ListView):
     def get_queryset(self):
         return Recipe.objects.select_related("author__user", "category", "cuisine").all()
 
-
-# def cuisine(request: HttpRequest, slug: str):
-#     cuisine: Cuisine = get_object_or_404(Cuisine, slug=slug)
-#     recipes: QuerySet[Recipe] = Recipe.objects.select_related(
-#         "author__user", "category", "cuisine"
-#     ).filter(cuisine=cuisine)
-#     context = {
-#         "recipes": recipes,
-#         "cuisine": cuisine,
-#     }
-
-#     return render(request, "cooking/cuisine.html", context)
 
 class CuisineView(ListView):
     template_name = "cooking/cuisine.html"
@@ -54,19 +32,6 @@ class CuisineView(ListView):
         return context
 
 
-# def category(request: HttpRequest, slug: str):
-#     category: Category = get_object_or_404(Category, slug=slug)
-#     recipes: QuerySet[Recipe] = Recipe.objects.select_related(
-#         "author__user", "category", "cuisine"
-#     ).filter(category=category)
-#     context = {
-#         "category": category,
-#         "recipes": recipes,
-#     }
-
-#     return render(request, "cooking/category.html", context)
-
-
 class CategoryView(ListView):
     template_name = "cooking/category.html"
     context_object_name = "recipes"
@@ -82,22 +47,6 @@ class CategoryView(ListView):
         context = super().get_context_data(**kwargs)
         context["category"] = self.category
         return context
-
-
-# def recipe(request: HttpRequest, slug: str):
-#     recipe: Recipe = get_object_or_404(
-#         Recipe.objects.select_related("author__user", "category", "cuisine").prefetch_related("ingredients"),
-#         slug=slug
-#     )
-#     category: Category = recipe.category
-#     ingredients: QuerySet[Ingredient] = recipe.ingredients.all()
-#     context = {
-#         "recipe": recipe,
-#         "category": category,
-#         "ingredients": ingredients,
-#     }
-
-#     return render(request, "cooking/recipe.html", context)
 
 
 class RecipeView(DetailView):
@@ -121,19 +70,6 @@ class RecipeView(DetailView):
         return context
 
 
-# def tag(request: HttpRequest, slug: str):
-#     tag: Tag = get_object_or_404(Tag, slug=slug)
-#     recipes: QuerySet[Recipe] = Recipe.objects.select_related(
-#         "author__user", "category", "cuisine"
-#     ).filter(tags=tag)
-#     context = {
-#         "tag": tag,
-#         "recipes": recipes,
-#     }
-
-#     return render(request, "cooking/tag.html", context)
-
-
 class TagView(ListView):
     template_name = "cooking/tag.html"
     context_object_name = "recipes"
@@ -151,6 +87,7 @@ class TagView(ListView):
         return context
 
 
+@login_required
 def add_recipe(request: HttpRequest):
     profile = request.user.profile
     if request.method == "POST":
@@ -188,7 +125,6 @@ def add_recipe(request: HttpRequest):
 
 
 def add_ingredient_form(request: HttpRequest):
-    # HTMX: возвращает пустую форму ингредиента
     # Создаем новую пустую форму для formset
     formset = IngredientFormSet(prefix="ingredients")
     empty_form = formset.empty_form
