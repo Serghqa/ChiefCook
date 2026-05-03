@@ -26,6 +26,7 @@ admin.site.site_header = "Панель администрирования"
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("cooking.urls", namespace="cooking")),
+    path("accounts/", include("accounts.urls", namespace="accounts")),
 ]
 
 if settings.DEBUG:

@@ -1,5 +1,3 @@
-from typing import Any
-
 from django import forms
 from django.forms.models import inlineformset_factory, BaseInlineFormSet
 from django.core.exceptions import ValidationError
@@ -23,8 +21,6 @@ class BaseIngredientFormSet(BaseInlineFormSet):
         if count_form_errors:
             if not any(form.has_changed() for form in self.forms):
                 raise ValidationError("Добавьте хотя бы один ингредиент.")
-        # if count_form_errors and len(self.forms) == 1:
-        #     raise ValidationError("Добавьте хотя бы один ингредиент.")
 
             raise ValidationError("Заполните обязательные поля ингредиентов.")
 

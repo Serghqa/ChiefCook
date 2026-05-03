@@ -29,11 +29,17 @@
                     <span>Мои рецепты</span>
                 </a>
                 <nav class="nav-menu">
-                    <a href="{% url 'cooking:add_recipe' %}">Добавить рецепт</a>
                     <a href="{% url 'cooking:index' %}">Главная</a>
-                    <a href="{% url 'cooking:index' %}">Зарегистрироваться</a>
-                    <a href="{% url 'cooking:index' %}">Войти</a>
-                    <a href="{% url 'admin:index' %}">Администратор</a>
+                    {% if not user.is_authenticated %}
+                        <a href="{% url 'accounts:register' %}">Зарегистрироваться</a>
+                        <a href="{% url 'accounts:login' %}">Войти</a>
+                    {% else %}
+                        <a href="{% url 'cooking:add_recipe' %}">Добавить рецепт</a>
+                        <form action="{% url 'accounts:logout' %}" method="post" class="logout-form">
+                            {% csrf_token %}
+                            <button type="submit" class="logout-button">Выйти</button>
+                        </form>
+                    {% endif %}
                 </nav>
             </div>
         </header>

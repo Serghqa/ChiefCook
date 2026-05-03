@@ -78,6 +78,32 @@ h6 { font-size: 1rem; }
     color: var(--primary-color);
 }
 
+/* Стили для формы и кнопки выхода в навигации */
+.logout-form {
+    display: flex;
+    align-items: center;
+}
+
+.logout-button {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit; /* Наследует шрифт, размер и вес от родителя */
+    cursor: pointer;
+
+    /* Копируем стили ваших ссылок */
+    color: #555;
+    font-weight: 500;
+    transition: var(--transition);
+    text-decoration: none;
+}
+
+.logout-button:hover {
+    color: var(--primary-color);
+}
+
+
 .logo {
     display: flex;
     align-items: center;

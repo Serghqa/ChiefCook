@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'django_extensions',
     'cooking.apps.CookingConfig',
+    'accounts.apps.AccountsConfig',
 ]
 
 MIDDLEWARE = [
@@ -65,7 +66,9 @@ MEDIA_ROOT = BASE_DIR / 'media/'
 
 MEDIA_URL = '/media/'
 
-LOGIN_URL = 'cooking:index'
+LOGIN_URL = 'accounts:login'
+LOGIN_REDIRECT_URL = 'accounts:account'
+LOGOUT_REDIRECT_URL = 'cooking:index'
 
 TEMPLATES = [
     {

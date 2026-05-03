@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+    <div>
+        <form method="post">
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+                <div>
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+            <div>
+                {% for field in form %}
+                    {% if field.errors %}
+                        <div>{{ field.errors }}</div>
+                    {% endif %}
+                    {{ field.label_tag }} {{ field }}
+                {% endfor %}
+            </div>
+            <div>
+                <button type="submit">Войти</button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}
