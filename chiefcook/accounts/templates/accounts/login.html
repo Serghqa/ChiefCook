@@ -1,23 +1,30 @@
 {% extends "base.html" %}
+{% block title %}
+    {{ "Вход в аккаунт" }}
+{% endblock title %}
 {% block content %}
-    <div>
-        <form method="post">
+    <nav class="breadcrumbs">
+        <a href="{% url 'cooking:index' %}">Главная</a> / <span>{{ "Вход в аккаунт" }}</span>
+    </nav>
+    <div class="auth-container">
+        <h3>Вход в аккаунт</h3>
+        <form method="post" class="auth-form">
             {% csrf_token %}
             {% if form.non_field_errors %}
-                <div>
+                <div class="auth-errors">
                     {{ form.non_field_errors }}
                 </div>
             {% endif %}
             <div>
                 {% for field in form %}
                     {% if field.errors %}
-                        <div>{{ field.errors }}</div>
+                        <div class="field-errors">{{ field.errors }}</div>
                     {% endif %}
                     {{ field.label_tag }} {{ field }}
                 {% endfor %}
             </div>
             <div>
-                <button type="submit">Войти</button>
+                <button type="submit" class="btn-auth">Войти</button>
             </div>
         </form>
     </div>

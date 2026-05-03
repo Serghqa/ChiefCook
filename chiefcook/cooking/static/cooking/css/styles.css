@@ -560,8 +560,6 @@ main {
     /* border-radius: 3px; */
 }
 
-
-
 /* Кнопки */
 .btn-remove-ingredient {
     background: #fff;
@@ -619,7 +617,115 @@ main {
     color: var(--primary-color);
 }
 
-/* 12. АДАПТИВНОСТЬ */
+/* 12. СТИЛИ ДЛЯ СТРАНИЦ АВТОРИЗАЦИИ (ВХОД И РЕГИСТРАЦИЯ) */
+.auth-container {
+    max-width: 450px;
+    margin: 40px auto;
+    background: var(--bg-card);
+    padding: 40px;
+    border-radius: 14px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid #eee;
+}
+
+.auth-container h3 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--text-dark);
+}
+
+/* Контейнер полей формы */
+.auth-form > div {
+    margin-bottom: 20px;
+}
+
+.auth-form label {
+    display: block;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 6px;
+}
+
+/* Стили для текстовых полей, пароля и email */
+.auth-form input[type="text"],
+.auth-form input[type="password"],
+.auth-form input[type="email"] {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: var(--transition);
+}
+
+.auth-form input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.15);
+}
+
+/* Общие ошибки (non_field_errors) */
+.auth-errors {
+    margin-bottom: 15px;
+}
+
+.auth-errors ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.auth-errors li {
+    font-size: 0.9rem;
+    color: #e74c3c;
+    padding: 5px 0;
+}
+
+/* Ошибки конкретных полей */
+.field-errors {
+    font-size: 0.85rem;
+    color: #e74c3c;
+    margin-bottom: 5px;
+    list-style: none;
+    padding: 0;
+}
+
+.field-errors li {
+    list-style: none;
+    padding: 2px 0;
+}
+
+/* Убираем марджин у последнего div с полями */
+.auth-form > div:last-of-type {
+    margin-bottom: 0;
+}
+
+/* Кнопка отправки формы */
+.btn-auth {
+    width: 100%;
+    padding: 14px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-top: 10px;
+    font-family: inherit;
+    letter-spacing: 0.5px;
+}
+
+.btn-auth:hover {
+    background: #e55a5a;
+    transform: translateY(-1px);
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+}
+
+/* 13. АДАПТИВНОСТЬ */
 @media (max-width: 900px) {
     body {
         overflow: auto;
