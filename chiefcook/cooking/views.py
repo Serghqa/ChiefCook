@@ -5,48 +5,36 @@ from django.contrib.auth.decorators import login_required
 
 from . models import Recipe, Category, Cuisine, Tag
 from . forms import RecipeForm, IngredientFormSet
+from . utils import RecipeQuerysetMixin, FilteredQuerysetMixin
 
 
-class IndexView(ListView):
+class IndexView(RecipeQuerysetMixin, ListView):
     template_name = "cooking/index.html"
     context_object_name = "recipes"
 
-    def get_queryset(self):
-        return Recipe.objects.select_related("author__user", "category", "cuisine").all()
 
-
-class CuisineView(ListView):
+class CuisineView(FilteredQuerysetMixin, ListView):
     template_name = "cooking/cuisine.html"
     context_object_name = "recipes"
-
-    def get_queryset(self):
-        slug = self.kwargs["slug"]
-        self.cuisine = get_object_or_404(Cuisine, slug=slug)
-        return Recipe.objects.select_related(
-            "author__user", "category", "cuisine"
-        ).filter(cuisine=self.cuisine)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["cuisine"] = self.cuisine
-        return context
+    filter_model = Cuisine
+    filter_field = "cuisine"
+    context_name = "cuisine"
 
 
-class CategoryView(ListView):
+class CategoryView(FilteredQuerysetMixin, ListView):
     template_name = "cooking/category.html"
     context_object_name = "recipes"
+    filter_model = Category
+    filter_field = "category"
+    context_name = "category"
 
-    def get_queryset(self):
-        slug = self.kwargs["slug"]
-        self.category = get_object_or_404(Category, slug=slug)
-        return Recipe.objects.select_related(
-            "author__user", "category", "cuisine"
-        ).filter(category=self.category)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["category"] = self.category
-        return context
+class TagView(FilteredQuerysetMixin, ListView):
+    template_name = "cooking/tag.html"
+    context_object_name = "recipes"
+    filter_model = Tag
+    filter_field = "tags"
+    context_name = "tag"
 
 
 class RecipeView(DetailView):
@@ -67,23 +55,6 @@ class RecipeView(DetailView):
         context = super().get_context_data(**kwargs)
         context["category"] = self.category
         context["ingredients"] = self.ingredients
-        return context
-
-
-class TagView(ListView):
-    template_name = "cooking/tag.html"
-    context_object_name = "recipes"
-
-    def get_queryset(self):
-        slug = self.kwargs["slug"]
-        self.tag = get_object_or_404(Tag, slug=slug)
-        return Recipe.objects.select_related(
-            "author__user", "category", "cuisine"
-        ).filter(tags=self.tag)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["tag"] = self.tag
         return context
 
 
