@@ -12,4 +12,5 @@ urlpatterns = [
      path("cuisine/<slug:slug>/", views.CuisineView.as_view(), name="cuisine"),
      path("addrecipe/", views.add_recipe, name="add_recipe"),
      path("add-ingredient-form/", views.add_ingredient_form, name="add_ingredient_form"),
+     path("my-recipes/", views.MyRecipesView.as_view(), name="my_recipes"),
 ]

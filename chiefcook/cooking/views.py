@@ -1,9 +1,10 @@
 from django.http import HttpRequest, Http404
+from django.urls import reverse
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.decorators import login_required
 
-from . models import Recipe, Category, Cuisine, Tag
+from . models import Profile, Recipe, Category, Cuisine, Tag
 from . forms import RecipeForm, IngredientFormSet
 from . utils import RecipeQuerysetMixin, FilteredQuerysetMixin
 
@@ -35,6 +36,15 @@ class TagView(FilteredQuerysetMixin, ListView):
     filter_model = Tag
     filter_field = "tags"
     context_name = "tag"
+
+
+class MyRecipesView(RecipeQuerysetMixin, ListView):
+    template_name = "cooking/index.html"
+    context_object_name = "recipes"
+
+    def get_queryset(self):
+        user = self.request.user
+        return super().get_queryset().filter(author=user.profile)
 
 
 class RecipeView(DetailView):

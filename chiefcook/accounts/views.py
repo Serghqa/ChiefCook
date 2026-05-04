@@ -1,10 +1,11 @@
-from django.views.generic import CreateView, DetailView
+from django.views.generic import CreateView, ListView
+from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import login
 from django.urls import reverse_lazy
 
-from . forms import UserRegisterForm
-from cooking.models import Profile
+from . forms import UserRegisterForm, UserLoginForm
+from cooking.models import Profile, Recipe
 
 
 class RegisterUserView(CreateView):
@@ -17,13 +18,24 @@ class RegisterUserView(CreateView):
         user = self.object
         Profile.objects.create(user=user)
         login(self.request, user)
-
         return response
 
 
-class AccountView(LoginRequiredMixin, DetailView):
-    template_name = "accounts/account.html"
-    context_object_name = "profile"
+class LoginUserView(LoginView):
+    form_class = UserLoginForm
+    template_name = "accounts/login.html"
+    success_url = reverse_lazy("accounts:account")
 
-    def get_object(self, queryset=None):
-        return self.request.user.profile
+
+class AccountView(LoginRequiredMixin, ListView):
+    template_name = "accounts/account.html"
+    context_object_name = "recipes"
+
+    def get_queryset(self):
+        user = self.request.user.profile
+        return Recipe.objects.filter(author=user)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["profile"] = self.request.user.profile
+        return context
