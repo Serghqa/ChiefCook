@@ -11,7 +11,7 @@ class UserRegisterForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ("username", "email", "first_name", "password1", "password2")
+        fields = ("username", "email", "first_name")
         widgets = {
             "email": forms.EmailInput(
                 attrs={
@@ -21,6 +21,7 @@ class UserRegisterForm(UserCreationForm):
             ),
             "username": forms.TextInput(
                 attrs={
+                    "autofocus": True,
                     "autocomplete": "username",
                     "placeholder": "Придумайте логин...",
                 }
@@ -32,18 +33,6 @@ class UserRegisterForm(UserCreationForm):
                     "required": True,
                 }
             ),
-            "password1": forms.PasswordInput(
-                attrs={
-                    "autocomplete": "new-password",
-                    "placeholder": "Придумайте пароль...",
-                }
-            ),
-            "password2": forms.PasswordInput(
-                attrs={
-                    "autocomplete": "new-password",
-                    "placeholder": "Повторите пароль...",
-                }
-            ),
         }
 
 
@@ -52,6 +41,7 @@ class UserLoginForm(AuthenticationForm):
         label="Логин",
         widget=forms.TextInput(
             attrs={
+                "autofocus": True,
                 "placeholder": "Введите логин...",
             }
         )
