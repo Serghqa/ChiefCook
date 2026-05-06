@@ -9,6 +9,7 @@
     <h3>Рецепты кухни: {{ cuisine.name }}</h3>
     {% if recipes %}
         {% include "cooking/includes/recipes.html" %}
+        {% include "cooking/includes/pagination.html" %}
     {% else %}
         <p>Рецептов этой кухни пока нет</p>
     {% endif %}

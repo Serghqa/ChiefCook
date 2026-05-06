@@ -9,6 +9,7 @@
     <h3>Рецепты по тегу: {{ tag.name }}</h3>
     {% if recipes %}
         {% include "cooking/includes/recipes.html" %}
+        {% include "cooking/includes/pagination.html" %}
     {% else %}
         <p>По выбранному тегу рецепты отсутствуют</p>
     {% endif %}

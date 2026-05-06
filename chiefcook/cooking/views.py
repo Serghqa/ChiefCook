@@ -1,10 +1,9 @@
-from django.http import HttpRequest, Http404
-from django.urls import reverse
+from django.http import HttpRequest
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.decorators import login_required
 
-from . models import Profile, Recipe, Category, Cuisine, Tag
+from . models import Recipe, Category, Cuisine, Tag
 from . forms import RecipeForm, IngredientFormSet
 from . utils import RecipeQuerysetMixin, FilteredQuerysetMixin
 
