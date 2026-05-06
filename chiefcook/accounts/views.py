@@ -22,7 +22,7 @@ class RegisterUserView(CreateView):
 
 
 class LoginUserView(LoginView):
-    form_class = UserLoginForm
+    authentication_form = UserLoginForm
     template_name = "accounts/login.html"
     success_url = reverse_lazy("accounts:account")
 
@@ -30,6 +30,7 @@ class LoginUserView(LoginView):
 class AccountView(LoginRequiredMixin, ListView):
     template_name = "accounts/account.html"
     context_object_name = "recipes"
+    paginate_by = 3
 
     def get_queryset(self):
         user = self.request.user.profile

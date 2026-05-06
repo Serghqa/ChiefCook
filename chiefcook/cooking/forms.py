@@ -114,7 +114,7 @@ IngredientFormSet = inlineformset_factory(
     Ingredient,  # дочерняя модель
     form=IngredientForm,
     formset=BaseIngredientFormSet,
-    extra=1,  # количество пустых форм для добавления ингредиентов
+    extra=2,  # количество пустых форм для добавления ингредиентов
     can_delete=False,  # возможность удалить строку
     can_delete_extra=True,
 )
