@@ -60,6 +60,8 @@ MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
+AUTH_USER_MODEL = 'cooking.User'
+
 ROOT_URLCONF = 'chiefcook.urls'
 
 MEDIA_ROOT = BASE_DIR / 'media/'

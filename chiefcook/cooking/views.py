@@ -43,7 +43,7 @@ class MyRecipesView(RecipeQuerysetMixin, ListView):
 
     def get_queryset(self):
         user = self.request.user
-        return super().get_queryset().filter(author=user.profile)
+        return super().get_queryset().filter(author=user)
 
 
 class RecipeView(DetailView):
@@ -53,7 +53,7 @@ class RecipeView(DetailView):
     def get_object(self, queryset=None):
         slug = self.kwargs["slug"]
         recipe = get_object_or_404(
-            Recipe.objects.select_related("author__user", "category", "cuisine").prefetch_related("ingredients"),
+            Recipe.objects.select_related("author", "category", "cuisine").prefetch_related("ingredients"),
             slug=slug
         )
         self.category = recipe.category
@@ -69,14 +69,14 @@ class RecipeView(DetailView):
 
 @login_required
 def add_recipe(request: HttpRequest):
-    profile = request.user.profile
+    user = request.user
     if request.method == "POST":
         form_recipe = RecipeForm(request.POST)
         formset = IngredientFormSet(request.POST, prefix="ingredients")
         if form_recipe.is_valid() and formset.is_valid():
             recipe = form_recipe.save(commit=False)
 
-            recipe.author = profile
+            recipe.author = user
             recipe.save()
             form_recipe.save_m2m()  # сохранение ManyToMany (tags)
             ingredients = formset.save(commit=False)

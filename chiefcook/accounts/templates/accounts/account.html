@@ -6,7 +6,7 @@
     <nav class="breadcrumbs">
         <a href="{% url 'cooking:index' %}">Главная</a> / <span>{{ "Личный кабинет" }}</span>
     </nav>
-    <h3>Добро пожаловать, {{ profile.user.first_name }}</h3>
+    <h3>Добро пожаловать, {{ user.first_name }}</h3>
     <div>
         <p><a href="{% url 'cooking:add_recipe' %}">Добавить рецепт</a></p>
         <p><a href="{% url 'cooking:my_recipes' %}">Показать мои рецепты</a></p>

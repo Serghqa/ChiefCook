@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 from django.utils.text import slugify
 from django.urls import reverse
 from unidecode import unidecode
@@ -78,7 +78,7 @@ class Tag(models.Model):
 
 class Recipe(models.Model):
     author = models.ForeignKey(
-        "Profile",
+        "User",
         on_delete=models.SET_NULL,
         null=True,
         related_name="recipes",
@@ -98,7 +98,7 @@ class Recipe(models.Model):
         related_name="recipes",
         verbose_name="Кухня"
     )
-    tags = models.ManyToManyField("Tag", related_name="recipes")
+    tags = models.ManyToManyField("Tag", related_name="recipes", verbose_name="Теги")
 
     name = models.CharField(max_length=255, db_index=True, verbose_name="Название рецепта")
     description = models.TextField(verbose_name="Описание")
@@ -168,8 +168,6 @@ class Ingredient(models.Model):
         verbose_name_plural = "Ингредиенты"
 
 
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.user.username
+class User(AbstractUser):
+    avatar = models.ImageField(upload_to="users/avatar/", blank=True, null=True, verbose_name="Аватарка")
+    bio = models.TextField(verbose_name="О себе")

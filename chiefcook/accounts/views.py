@@ -5,7 +5,7 @@ from django.contrib.auth import login
 from django.urls import reverse_lazy
 
 from . forms import UserRegisterForm, UserLoginForm
-from cooking.models import Profile, Recipe
+from cooking.models import User, Recipe
 
 
 class RegisterUserView(CreateView):
@@ -16,7 +16,6 @@ class RegisterUserView(CreateView):
     def form_valid(self, form):
         response = super().form_valid(form)
         user = self.object
-        Profile.objects.create(user=user)
         login(self.request, user)
         return response
 
@@ -33,10 +32,5 @@ class AccountView(LoginRequiredMixin, ListView):
     paginate_by = 3
 
     def get_queryset(self):
-        user = self.request.user.profile
+        user = self.request.user
         return Recipe.objects.filter(author=user)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["profile"] = self.request.user.profile
-        return context

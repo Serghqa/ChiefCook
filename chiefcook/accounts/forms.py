@@ -1,5 +1,5 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django import forms
 
 
@@ -10,7 +10,7 @@ class UserRegisterForm(UserCreationForm):
         self.fields["first_name"].required = True
 
     class Meta(UserCreationForm.Meta):
-        model = User
+        model = get_user_model()
         fields = ("username", "email", "first_name")
         widgets = {
             "email": forms.EmailInput(
