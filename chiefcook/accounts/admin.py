@@ -7,7 +7,6 @@ from .models import User
 
 class ModelUser(UserAdmin):
     add_form = UserRegisterAdminForm
-    model = User
     # Поля, которые отображаются в списке всех пользователей
     list_display = ("username", "email", "first_name", "is_staff")
 

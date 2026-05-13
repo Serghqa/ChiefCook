@@ -1,7 +1,6 @@
 from django.views.generic import CreateView, ListView
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth import login
 from django.urls import reverse_lazy
 
 from . forms import UserRegisterForm, UserLoginForm
@@ -11,13 +10,7 @@ from cooking.models import Recipe
 class RegisterUserView(CreateView):
     form_class = UserRegisterForm
     template_name = "accounts/user_register.html"
-    success_url = reverse_lazy("accounts:account")
-
-    def form_valid(self, form):
-        response = super().form_valid(form)
-        user = self.object
-        login(self.request, user)
-        return response
+    success_url = reverse_lazy("accounts:login")
 
 
 class LoginUserView(LoginView):
