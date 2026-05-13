@@ -9,7 +9,7 @@
                 <img src="{% static 'cooking/images/not_image.jpg' %}" alt="Нет изображения" class="card-image">
             {% endif %}
             <div class="card-subtitle">Кухня: {{ recipe.cuisine.name }}</div>
-            <div class="card-subtitle">Автор: {{ recipe.author.username }}</div>
+            <div class="card-subtitle">Автор: {{ recipe.author.username|default:"Неизвестен" }}</div>
             <div class="card-subtitle">Категория: {{ recipe.category.name }}</div>
         </div>
     {% endfor %}

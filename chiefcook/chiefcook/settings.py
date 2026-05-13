@@ -60,7 +60,7 @@ MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
-AUTH_USER_MODEL = 'cooking.User'
+AUTH_USER_MODEL = 'accounts.User'
 
 ROOT_URLCONF = 'chiefcook.urls'
 

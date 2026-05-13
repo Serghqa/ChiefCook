@@ -5,7 +5,7 @@ from django.contrib.auth import login
 from django.urls import reverse_lazy
 
 from . forms import UserRegisterForm, UserLoginForm
-from cooking.models import User, Recipe
+from cooking.models import Recipe
 
 
 class RegisterUserView(CreateView):

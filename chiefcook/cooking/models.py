@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.conf import settings
 from django.utils.text import slugify
 from django.urls import reverse
 from unidecode import unidecode
@@ -78,7 +78,7 @@ class Tag(models.Model):
 
 class Recipe(models.Model):
     author = models.ForeignKey(
-        "User",
+        settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
         null=True,
         related_name="recipes",
@@ -166,8 +166,3 @@ class Ingredient(models.Model):
     class Meta:
         verbose_name = "Ингредиент"
         verbose_name_plural = "Ингредиенты"
-
-
-class User(AbstractUser):
-    avatar = models.ImageField(upload_to="users/avatar/", blank=True, null=True, verbose_name="Аватарка")
-    bio = models.TextField(verbose_name="О себе")

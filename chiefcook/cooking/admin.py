@@ -1,11 +1,7 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
 from django.utils.safestring import mark_safe
 
-from cooking.models import Category, Cuisine, Recipe, Ingredient, Tag, User
-
-
-admin.site.register(User, UserAdmin)
+from cooking.models import Category, Cuisine, Recipe, Ingredient, Tag
 
 
 class IngredientInline(admin.TabularInline):
