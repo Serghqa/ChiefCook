@@ -71,7 +71,7 @@ class RecipeView(DetailView):
 def add_recipe(request: HttpRequest):
     user = request.user
     if request.method == "POST":
-        form_recipe = RecipeForm(request.POST)
+        form_recipe = RecipeForm(request.POST, request.FILES)
         formset = IngredientFormSet(request.POST, prefix="ingredients")
         if form_recipe.is_valid() and formset.is_valid():
             recipe = form_recipe.save(commit=False)

@@ -5,19 +5,19 @@
 {% endblock title %}
 {% block content %}
     <nav class="breadcrumbs">
-        <a href="{% url 'cooking:index' %}">Главная</a> / <span>{{ recipe.name }}</span>
+        <a href="{% url 'cooking:index' %}">Главная</a> / <span>{{ recipe.name|capfirst }}</span>
     </nav>
     <article class="recipe-detail">
         <div class="recipe-container">
             <div class="recipe-header">
-                <h2>{{ recipe.name }}</h2>
+                <h2>{{ recipe.name|capfirst }}</h2>
                 <div class="cuisine-badge">{{ recipe.cuisine.name }} кухня</div>
             </div>
             <section class="ingredients-section">
                 <h4>Ингредиенты</h4>
                 <ul class="ingredients-list">
                     {% for ingredient in ingredients %}
-                        <li>{{ ingredient.name }} {{ ingredient.amount|floatformat }} {{ ingredient.get_unit_display }}</li>
+                        <li>{{ ingredient.name|capfirst }} {{ ingredient.amount|floatformat }} {{ ingredient.get_unit_display }}</li>
                     {% endfor %}
                 </ul>
             </section>

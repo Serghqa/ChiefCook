@@ -2,9 +2,9 @@
 <div class="cards-container">
     {% for recipe in recipes %}
         <div class="card">
-            <a href="{{ recipe.get_absolute_url }}" class="card-title">{{ recipe.name }}</a>
+            <a href="{{ recipe.get_absolute_url }}" class="card-title">{{ recipe.name|capfirst }}</a>
             {% if recipe.image %}
-                <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}" class="card-image">
+                <img src="{{ recipe.image.url }}" alt="{{ recipe.name|capfirst }}" class="card-image">
             {% else %}
                 <img src="{% static 'cooking/images/not_image.jpg' %}" alt="Нет изображения" class="card-image">
             {% endif %}

@@ -426,6 +426,49 @@ main {
     border-radius: 10px;
 }
 
+/* Стили для поля загрузки изображения */
+.r-file-field {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    background: #fafafa;
+    transition: var(--transition);
+    /* Делаем текстовую часть некликабельной */
+    pointer-events: none;
+}
+
+.r-file-field:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+/* Стилизация кнопки выбора файла (WebKit) */
+.r-file-field::file-selector-button {
+    padding: 8px 16px;
+    margin-right: 12px;
+    border: none;
+    border-radius: 6px;
+    background: var(--bg-page);
+    color: var(--text-dark);
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    /* Возвращаем кликабельность кнопке */
+    pointer-events: auto;
+}
+
+.r-file-field::file-selector-button:hover {
+    background: #e9e7e2;
+    color: var(--primary-color);
+}
+
+
 .i-name-field,
 .i-amount-field,
 .i-unit-field,

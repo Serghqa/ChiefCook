@@ -44,15 +44,22 @@ class RecipeForm(forms.ModelForm):
         label="Кухня",
         empty_label="Выберите кухню",
     )
+
     class Meta:
         model = Recipe
-        fields = ["name", "category", "cuisine", "tags", "description", "instructions", "cooking_time"]
+        fields = ["name", "category", "cuisine", "tags", "image", "description", "instructions", "cooking_time"]
         widgets = {
             "name": forms.TextInput(
                 attrs={
                     "class": "r-name-field",
                     "placeholder": "Название рецепта...",
                     "autocomplete": "off",
+                }
+            ),
+            "image": forms.FileInput(
+                attrs={
+                    "class": "r-file-field",
+                    "accept": "image/*",
                 }
             ),
             "description": forms.Textarea(
