@@ -1,4 +1,4 @@
-/* 1. ПЕРЕМЕННЫЕ */
+/* ПЕРЕМЕННЫЕ */
 :root {
     --primary-color: #ff6b6b;
     --accent-color: #e67e22;
@@ -11,7 +11,7 @@
     --transition: all 0.3s ease;
 }
 
-/* 2. БАЗОВЫЕ СТИЛИ (ФИКСИРУЕМ ЭКРАН) */
+/* БАЗОВЫЕ СТИЛИ (ФИКСИРУЕМ ЭКРАН) */
 html, body {
     height: 100vh;
     margin: 0;
@@ -42,7 +42,7 @@ h4 { font-size: 1.25rem; }
 h5 { font-size: 1.1rem; }
 h6 { font-size: 1rem; }
 
-/* 3. ШАПКА */
+/* ШАПКА */
 .main-header {
     flex-shrink: 0;
     /* Не дает шапке сжиматься */
@@ -137,7 +137,7 @@ h6 { font-size: 1rem; }
 }
 
 
-/* 4. LAYOUT (РАЗДЕЛЬНЫЙ СКРОЛЛ) */
+/* LAYOUT (РАЗДЕЛЬНЫЙ СКРОЛЛ) */
 main {
     display: flex;
     flex: 1;
@@ -178,7 +178,7 @@ main {
     word-break: break-word;
 }
 
-/* 5. СКРОЛЛБАРЫ */
+/* СКРОЛЛБАРЫ */
 .sidebar::-webkit-scrollbar,
 .main-content::-webkit-scrollbar {
     width: 6px;
@@ -190,7 +190,7 @@ main {
     border-radius: 10px;
 }
 
-/* 6. НАВИГАЦИЯ САЙДБАРА */
+/* НАВИГАЦИЯ САЙДБАРА */
 .sidebar h4 {
     color: var(--text-dark);
     text-transform: uppercase;
@@ -232,7 +232,7 @@ main {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
-/* 7. КАРТОЧКИ */
+/* КАРТОЧКИ */
 .cards-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -285,7 +285,7 @@ main {
     display: block;
 }
 
-/* 8. СТРАНИЦА РЕЦЕПТА */
+/* СТРАНИЦА РЕЦЕПТА */
 .recipe-detail {
     background: #fff;
     padding: 40px;
@@ -350,7 +350,7 @@ main {
     line-height: 1.8;
 }
 
-/* 9. ПОДВАЛ (КОМПАКТНЫЙ) */
+/* ПОДВАЛ (КОМПАКТНЫЙ) */
 .main-footer {
     flex-shrink: 0;
     /* Не дает футеру сжиматься */
@@ -660,7 +660,7 @@ main {
     color: var(--primary-color);
 }
 
-/* 12. СТИЛИ ДЛЯ СТРАНИЦ АВТОРИЗАЦИИ (ВХОД И РЕГИСТРАЦИЯ) */
+/* СТИЛИ ДЛЯ СТРАНИЦ АВТОРИЗАЦИИ (ВХОД И РЕГИСТРАЦИЯ) */
 .user-container {
     max-width: 450px;
     margin: 40px auto;
@@ -704,6 +704,26 @@ main {
 }
 
 .user-form input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.15);
+}
+
+/* Поле bio */
+.user-form textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+    box-sizing: border-box;
+    resize: vertical;
+    min-height: 100px;
+    transition: var(--transition);
+}
+
+.user-form textarea:focus {
     outline: none;
     border-color: var(--primary-color);
     box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.15);
@@ -768,7 +788,84 @@ main {
     box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
 }
 
-/* 13. СТИЛИ ДЛЯ ПАГИНАЦИИ */
+/* СТИЛИ ДЛЯ АВАТАРА */
+.avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--primary-color);
+    margin-bottom: 20px;
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Аватар форма редактирования */
+.avatar-widget {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.avatar-current {
+    text-align: center;
+}
+
+.avatar-current p {
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+}
+
+.avatar-current img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--primary-color);
+}
+
+.avatar-clear {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.avatar-clear input[type="checkbox"] {
+    cursor: pointer;
+}
+
+.avatar-clear label {
+    margin: 0;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.avatar-change {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.avatar-change label {
+    margin: 0;
+}
+
+.avatar-change input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: inherit;
+    background: #fafafa;
+}
+
+
+/* СТИЛИ ДЛЯ ПАГИНАЦИИ */
 .pagination-container {
     display: flex;
     justify-content: center;
@@ -817,52 +914,4 @@ main {
     color: var(--text-gray);
     min-width: auto;
     cursor: default;
-}
-
-/* 14. АДАПТИВНОСТЬ */
-@media (max-width: 900px) {
-    body {
-        overflow: auto;
-        height: auto;
-    }
-
-    /* Возвращаем обычный скролл на мобилках */
-    main {
-        flex-direction: column;
-        overflow: visible;
-        height: auto;
-    }
-
-    .sidebar {
-        width: 100%;
-        border-right: none;
-        height: auto;
-        overflow: visible;
-    }
-
-    .main-content {
-        height: auto;
-        overflow: visible;
-        padding: 20px;
-    }
-
-    .ingredient-form p {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* 15. СТИЛИ ДЛЯ АВАТАРА */
-.avatar {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 2px solid var(--primary-color);
-    margin-bottom: 20px;
-}
-
-.avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
 }

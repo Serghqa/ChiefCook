@@ -1,12 +1,12 @@
-<div>
+<div class="avatar-widget">
     {% if widget.is_initial %}
         {# 1. Блок с текущим изображением #}
-        <div>
+        <div class="avatar-current">
             <p>{{ widget.initial_text }}:</p>
             <img src="{{ widget.value.url }}" alt="Аватар">
         </div>
         {# 2. Чекбокс для удаления #}
-        <div>
+        <div class="avatar-clear">
             <input type="checkbox"
                    name="{{ widget.name }}-clear"
                    id="id_{{ widget.name }}_clear_id">
@@ -15,7 +15,7 @@
 
     {% endif %}
     {# 3. Кнопка выбора нового файла (Изменить) #}
-    <div>
+    <div class="avatar-change">
         {% if widget.is_initial %}<label>{{ widget.input_text }}:</label>{% endif %}
         <input type="{{ widget.type }}"
                name="{{ widget.name }}"

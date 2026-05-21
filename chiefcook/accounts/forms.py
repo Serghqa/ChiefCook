@@ -14,44 +14,71 @@ class UserRegisterAdminForm(UniqueEmailMixin, UserCreationForm):
 
 
 class UserRegisterForm(UniqueEmailMixin, UserCreationForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields["email"].required = True
-        self.fields["first_name"].required = True
-
+    email = forms.EmailField(
+        required=True,
+        label="Почта",
+        widget=forms.EmailInput(
+            attrs={
+                "autocomplete": "email",
+                "placeholder": "Введите email...",
+            }
+        )
+    )
+    username = forms.CharField(
+        required=True,
+        label="Логин",
+        widget=forms.TextInput(
+            attrs={
+                "autofocus": True,
+                "autocomplete": "username",
+                "placeholder": "Придумайте логин...",
+            }
+        )
+    )
     class Meta(UserCreationForm.Meta):
         model = get_user_model()
-        fields = ("username", "email", "first_name",)
-        widgets = {
-            "email": forms.EmailInput(
-                attrs={
-                    "autocomplete": "email",
-                    "placeholder": "Введите email...",
-                }
-            ),
-            "username": forms.TextInput(
-                attrs={
-                    "autofocus": True,
-                    "autocomplete": "username",
-                    "placeholder": "Придумайте логин...",
-                }
-            ),
-            "first_name": forms.TextInput(
-                attrs={
-                    "autocomplete": "given-name",
-                    "placeholder": "Ваше имя",
-                    "required": True,
-                }
-            ),
-        }
+        fields = ("username", "email", "password1", "password2",)
 
 
 class UserUpdateForm(UniqueEmailMixin, forms.ModelForm):
+    email = forms.EmailField(
+        required=True,
+        label="Почта",
+        widget=forms.EmailInput(
+            attrs={
+                "autocomplete": "email",
+                "placeholder": "Введите email...",
+            }
+        )
+    )
     class Meta:
         model = get_user_model()
         fields = ("avatar", "first_name", "last_name", "bio", "email",)
         widgets = {
             "avatar": CustomClearableFileInput(),
+            "first_name": forms.TextInput(
+                attrs={
+                    "autocomplete": "off",
+                    "placeholder": "Введите ваше имя...",
+                }
+            ),
+            "last_name": forms.TextInput(
+                attrs={
+                    "autocomplete": "off",
+                    "placeholder": "Введите вашу фамилию...",
+                }
+            ),
+            "bio": forms.Textarea(
+                attrs={
+                    "placeholder": "Напишите о себе...",
+                }
+            ),
+        }
+        labels = {
+            "avatar": "Фото",
+            "first_name": "Имя",
+            "last_name": "Фамилия",
+            "bio": "О себе",
         }
 
 

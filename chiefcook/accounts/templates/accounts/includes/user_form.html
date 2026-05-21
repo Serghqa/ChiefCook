@@ -6,13 +6,10 @@
 {% endif %}
 <div>
     <div>
-        {{ form.avatar.label_tag }}
-        {{ form.avatar }}
         {% if form.avatar.errors %}
-            <div>
-                {{ form.avatar.errors }}
-            </div>
+            <div class="field-errors">{{ form.avatar.errors }}</div>
         {% endif %}
+        {{ form.avatar }}
     </div>
     {% for field in form %}
         {% if field.name != "avatar" %}
