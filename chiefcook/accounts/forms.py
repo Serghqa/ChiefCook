@@ -2,24 +2,18 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import get_user_model
 from django import forms
 
+from .utils import UniqueEmailMixin
+from .widgets import CustomClearableFileInput
 from .models import User
 
 
-class BaseRegisterUserForm(UserCreationForm):
-    def clean_email(self):
-        email = self.cleaned_data.get("email")
-        if User.objects.filter(email=email).exists():
-            raise forms.ValidationError("Пользователь с таким email уже зарегистрирован.")
-        return email
-
-
-class UserRegisterAdminForm(BaseRegisterUserForm):
+class UserRegisterAdminForm(UniqueEmailMixin, UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ("username", "email", "first_name")
+        fields = ("username", "email", "first_name",)
 
 
-class UserRegisterForm(BaseRegisterUserForm):
+class UserRegisterForm(UniqueEmailMixin, UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["email"].required = True
@@ -27,7 +21,7 @@ class UserRegisterForm(BaseRegisterUserForm):
 
     class Meta(UserCreationForm.Meta):
         model = get_user_model()
-        fields = ("username", "email", "first_name")
+        fields = ("username", "email", "first_name",)
         widgets = {
             "email": forms.EmailInput(
                 attrs={
@@ -52,6 +46,15 @@ class UserRegisterForm(BaseRegisterUserForm):
         }
 
 
+class UserUpdateForm(UniqueEmailMixin, forms.ModelForm):
+    class Meta:
+        model = get_user_model()
+        fields = ("avatar", "first_name", "last_name", "bio", "email",)
+        widgets = {
+            "avatar": CustomClearableFileInput(),
+        }
+
+
 class UserLoginForm(AuthenticationForm):
     username = forms.CharField(
         label="Логин",
@@ -66,7 +69,7 @@ class UserLoginForm(AuthenticationForm):
         label="Пароль",
         widget=forms.PasswordInput(
             attrs={
-                "autocomplete": "new-password",
+                "autocomplete": "current-password",
                 "placeholder": "Введите пароль...",
             }
         )

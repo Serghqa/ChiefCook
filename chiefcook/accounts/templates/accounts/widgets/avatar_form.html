@@ -1,0 +1,24 @@
+<div>
+    {% if widget.is_initial %}
+        {# 1. Блок с текущим изображением #}
+        <div>
+            <p>{{ widget.initial_text }}:</p>
+            <img src="{{ widget.value.url }}" alt="Аватар">
+        </div>
+        {# 2. Чекбокс для удаления #}
+        <div>
+            <input type="checkbox"
+                   name="{{ widget.name }}-clear"
+                   id="id_{{ widget.name }}_clear_id">
+            <label for="id_{{ widget.name }}_clear_id">{{ widget.clear_checkbox_label }}</label>
+        </div>
+
+    {% endif %}
+    {# 3. Кнопка выбора нового файла (Изменить) #}
+    <div>
+        {% if widget.is_initial %}<label>{{ widget.input_text }}:</label>{% endif %}
+        <input type="{{ widget.type }}"
+               name="{{ widget.name }}"
+               {% include "django/forms/widgets/attrs.html" %}>
+    </div>
+</div>

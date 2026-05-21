@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}
     {{ "Личный кабинет" }}
 {% endblock title %}
@@ -6,9 +7,17 @@
     <nav class="breadcrumbs">
         <a href="{% url 'cooking:index' %}">Главная</a> / <span>{{ "Личный кабинет" }}</span>
     </nav>
-    <h3>Добро пожаловать, {{ user.first_name }}</h3>
+    <h3>Добро пожаловать, {{ user.first_name|capfirst }}</h3>
     <div>
+        <div class="avatar">
+            {% if user.avatar %}
+                <img src="{{ user.avatar.url }}" alt="{{ user.username|capfirst }}">
+            {% else %}
+                <img src="{% static 'cooking/images/not_image_user.png' %}" alt="Нет изображения">
+            {% endif %}
+        </div>
         <p><a href="{% url 'cooking:add_recipe' %}">Добавить рецепт</a></p>
         <p><a href="{% url 'cooking:my_recipes' %}">Показать мои рецепты</a></p>
+        <p><a href="{% url 'accounts:edit_profile' %}">Редактировать профиль</a></p>
     </div>
 {% endblock content %}

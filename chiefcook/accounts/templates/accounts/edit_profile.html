@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}
+    {{ "Редактор профиля" }}
+{% endblock title %}
+{% block content %}
+    <nav class="breadcrumbs">
+        <a href="{% url 'accounts:account' %}">Личный кабинет</a> / <span>{{ "Редактор профиля" }}</span>
+    </nav>
+    <div class="user-container">
+        <h3>Редактор профиля</h3>
+        <form method="post" enctype="multipart/form-data" class="user-form">
+            {% include "accounts/includes/user_form.html" %}
+            <div>
+                <button type="submit" class="btn-user">Сохранить</button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

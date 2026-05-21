@@ -6,25 +6,12 @@
     <nav class="breadcrumbs">
         <a href="{% url 'cooking:index' %}">Главная</a> / <span>{{ "Создать аккаунт" }}</span>
     </nav>
-    <div class="auth-container">
+    <div class="user-container">
         <h3>Регистрация аккаунта</h3>
-        <form method="post" class="auth-form">
-            {% csrf_token %}
-            {% if form.non_field_errors %}
-                <div class="auth-errors">
-                    {{ form.non_field_errors }}
-                </div>
-            {% endif %}
+        <form method="post" class="user-form">
+            {% include "accounts/includes/user_form.html" %}
             <div>
-                {% for field in form %}
-                    {% if field.errors %}
-                        <div class="field-errors">{{ field.errors }}</div>
-                    {% endif %}
-                    {{ field.label_tag }} {{ field }}
-                {% endfor %}
-            </div>
-            <div>
-                <button type="submit" class="btn-auth">Создать аккаунт</button>
+                <button type="submit" class="btn-user">Создать аккаунт</button>
             </div>
         </form>
     </div>

@@ -1,9 +1,10 @@
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, UpdateView
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from django.contrib.auth import get_user_model
 
-from . forms import UserRegisterForm, UserLoginForm
+from . forms import UserRegisterForm, UserLoginForm, UserUpdateForm
 from cooking.models import Recipe
 
 
@@ -27,3 +28,12 @@ class AccountView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         user = self.request.user
         return Recipe.objects.filter(author=user)
+
+
+class EditAccountView(UpdateView):
+    form_class = UserUpdateForm
+    template_name = "accounts/edit_profile.html"
+    success_url = reverse_lazy("accounts:account")
+
+    def get_object(self, queryset=None):
+        return self.request.user

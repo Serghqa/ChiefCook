@@ -47,7 +47,7 @@ class RecipeForm(forms.ModelForm):
 
     class Meta:
         model = Recipe
-        fields = ["name", "category", "cuisine", "tags", "image", "description", "instructions", "cooking_time"]
+        fields = ("name", "category", "cuisine", "tags", "image", "description", "instructions", "cooking_time",)
         widgets = {
             "name": forms.TextInput(
                 attrs={
@@ -92,7 +92,7 @@ class IngredientForm(forms.ModelForm):
 
     class Meta:
         model = Ingredient
-        fields=["name", "amount", "unit"]
+        fields=("name", "amount", "unit",)
         widgets = {
             "name": forms.TextInput(
                 attrs={
