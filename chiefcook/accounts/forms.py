@@ -1,4 +1,4 @@
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 from django.contrib.auth import get_user_model
 from django import forms
 
@@ -101,3 +101,9 @@ class UserLoginForm(AuthenticationForm):
             }
         )
     )
+
+
+class UserPasswordChangeForm(PasswordChangeForm):
+    old_password = forms.CharField(label="Старый пароль", widget=forms.PasswordInput(attrs={"autofocus": True}))
+    new_password1 = forms.CharField(label="Новый пароль", widget=forms.PasswordInput())
+    new_password2 = forms.CharField(label="Подтверждение пароля", widget=forms.PasswordInput())
