@@ -12,6 +12,7 @@
             {% include "accounts/includes/user_form.html" %}
             <div>
                 <button type="submit" class="btn-user">Войти</button>
+                <a href="{% url 'accounts:password_reset' %}" class="forgot-password">Забыли пароль?</a>
             </div>
         </form>
     </div>

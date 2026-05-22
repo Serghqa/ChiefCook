@@ -729,6 +729,19 @@ main {
     box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.15);
 }
 
+.forgot-password {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 0.9rem;
+    color: var(--text-gray);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.forgot-password:hover {
+    color: var(--primary-color);
+}
+
 /* Общие ошибки (non_field_errors) */
 .user-errors {
     margin-bottom: 15px;
@@ -783,6 +796,50 @@ main {
 }
 
 .btn-user:hover {
+    background: #e55a5a;
+    transform: translateY(-1px);
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+}
+
+/* Стили для блока с недействительной ссылкой */
+.invalid-link-message {
+    margin-bottom: 15px;
+    color: var(--text-dark);
+    font-size: 1rem;
+}
+
+.invalid-link-action {
+    display: inline-block;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.invalid-link-action:hover {
+    text-decoration: underline;
+    color: #e55a5a;
+}
+
+/* Стили для страницы успешной смены пароля */
+.password-done-message {
+    margin-bottom: 20px;
+    color: var(--text-dark);
+    font-size: 1rem;
+}
+
+.password-done-link {
+    display: inline-block;
+    padding: 12px 24px;
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.password-done-link:hover {
     background: #e55a5a;
     transform: translateY(-1px);
     box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
