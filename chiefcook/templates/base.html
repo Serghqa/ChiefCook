@@ -29,6 +29,9 @@
                     <span>Мои рецепты</span>
                 </a>
                 <nav class="nav-menu">
+                    {% if user.is_superuser %}
+                        <a href="{% url 'admin:index' %}">Администрация</a>
+                    {% endif %}
                     <a href="{% url 'cooking:index' %}">Главная</a>
                     <a href="{% url 'accounts:account' %}">Мой профиль</a>
                     {% if not user.is_authenticated %}
